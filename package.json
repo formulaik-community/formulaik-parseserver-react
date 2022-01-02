@@ -25,6 +25,10 @@
   },
   "peerDependencies": {
     "react": "^17.0.2",
+    "formulaik": "git+https://28b1fe741a74422f216eaa7128b8b5914bb12594:x-oauth-basic@github.com/yelounak/formulaik.git",
+    "yup": "^0.32.11"
+  },
+  "dependencies": {
     "@material-ui/core": "5.0.0-alpha.24",
     "@material-ui/lab": "5.0.0-alpha.24",
     "@mui/icons-material": "^5.2.5",
@@ -45,9 +49,8 @@
     "react-phone-number-input": "^3.1.41",
     "react-json-editor-ajrm": "^2.5.13",
     "react-textarea-autosize": "^8.3.3",
-    "formulaik": "git+https://28b1fe741a74422f216eaa7128b8b5914bb12594:x-oauth-basic@github.com/yelounak/formulaik.git"
+    "yup": "^0.32.11"
   },
-  "dependencies": {},
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
     "babel-eslint": "^10.0.3",
