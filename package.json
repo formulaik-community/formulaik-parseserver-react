@@ -45,7 +45,7 @@
     "react-phone-number-input": "^3.1.41",
     "react-json-editor-ajrm": "^2.5.13",
     "react-textarea-autosize": "^8.3.3",
-    "formulaik": "file:../formulaik"
+    "formulaik": "git+https://28b1fe741a74422f216eaa7128b8b5914bb12594:x-oauth-basic@github.com/yelounak/formulaik.git"
   },
   "dependencies": {},
   "devDependencies": {

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -12,9 +12,9 @@ export default (props) => {
     errors,
     item: { label, id, props: itemProps } } = props
 
-  const [open, setOpen] = React.useState(false)
-  const [options, setOptions] = React.useState([])
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [open, setOpen] = useState(false)
+  const [options, setOptions] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   // useEffect(() => {
   //     let active = true
