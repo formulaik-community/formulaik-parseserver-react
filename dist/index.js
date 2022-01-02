@@ -4234,19 +4234,19 @@ var Autocomplete = (function (props) {
       id = _props$item.id,
       itemProps = _props$item.props;
 
-  var _React$useState = React.useState(false),
-      open = _React$useState[0],
-      setOpen = _React$useState[1];
+  var _useState = React.useState(false),
+      open = _useState[0],
+      setOpen = _useState[1];
 
-  var _React$useState2 = React.useState([]),
-      options = _React$useState2[0],
-      setOptions = _React$useState2[1];
+  var _useState2 = React.useState([]),
+      options = _useState2[0],
+      setOptions = _useState2[1];
 
-  var _React$useState3 = React.useState(false),
-      isLoading = _React$useState3[0],
-      setIsLoading = _React$useState3[1];
+  var _useState3 = React.useState(false),
+      isLoading = _useState3[0],
+      setIsLoading = _useState3[1];
 
-  useEffect(function () {
+  React.useEffect(function () {
 
     updateOptions({
       value: ''
@@ -4270,7 +4270,7 @@ var Autocomplete = (function (props) {
     }
   };
 
-  return /*#__PURE__*/React.createElement(Autocomplete$1, _extends({
+  return /*#__PURE__*/React__default.createElement(Autocomplete$1, _extends({
     id: "asynchronous-demo",
     open: open,
     onOpen: function onOpen() {
@@ -4288,7 +4288,7 @@ var Autocomplete = (function (props) {
     },
     defaultValue: values && values[id] ? values[id] : initialValues[id],
     renderInput: function renderInput(params) {
-      return /*#__PURE__*/React.createElement(TextField, _extends({}, params, field, {
+      return /*#__PURE__*/React__default.createElement(TextField, _extends({}, params, field, {
         label: label,
         onChange: function onChange(_ref2) {
           var value = _ref2.target.value;
@@ -4298,7 +4298,7 @@ var Autocomplete = (function (props) {
           return Promise.resolve();
         },
         InputProps: _extends({}, params.InputProps, {
-          endAdornment: /*#__PURE__*/React.createElement(React.Fragment, null, isLoading ? /*#__PURE__*/React.createElement(CircularProgress, {
+          endAdornment: /*#__PURE__*/React__default.createElement(React__default.Fragment, null, isLoading ? /*#__PURE__*/React__default.createElement(CircularProgress, {
             color: "inherit",
             size: 20
           }) : null, params.InputProps.endAdornment)

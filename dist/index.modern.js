@@ -1,4 +1,4 @@
-import React__default, { useState, useRef, useEffect as useEffect$1, createElement, Fragment as Fragment$1 } from 'react';
+import React, { useState, useRef, useEffect, createElement } from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox$1 from '@mui/material/Checkbox';
@@ -57,7 +57,7 @@ var Input = (function (props) {
       id = _props$item.id,
       label = _props$item.label,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(TextField, _extends({
+  return /*#__PURE__*/React.createElement(TextField, _extends({
     label: label,
     variant: "outlined"
   }, field, {
@@ -73,9 +73,9 @@ var Input = (function (props) {
 var Submit = (function (props) {
   var isSubmitting = props.isSubmitting,
       value = props.item.value;
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "flex justify-center mt-4"
-  }, /*#__PURE__*/React__default.createElement("button", {
+  }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline btn-lg w-60  " + (isSubmitting ? 'loading' : ''),
     type: "submit",
     disabled: isSubmitting
@@ -89,10 +89,10 @@ var Checkbox = (function (props) {
       label = _props$item.label,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "px-4 py-2 card rounded-lg border-2 border-warmGray-400 "
-  }, /*#__PURE__*/React__default.createElement(FormControlLabel, {
-    control: /*#__PURE__*/React__default.createElement(Checkbox$1, _extends({
+  }, /*#__PURE__*/React.createElement(FormControlLabel, {
+    control: /*#__PURE__*/React.createElement(Checkbox$1, _extends({
       color: "default"
     }, itemProps, {
       checked: function () {
@@ -105,7 +105,7 @@ var Checkbox = (function (props) {
       }
     })),
     label: label
-  }), itemProps && itemProps.subLabel ? /*#__PURE__*/React__default.createElement("small", {
+  }), itemProps && itemProps.subLabel ? /*#__PURE__*/React.createElement("small", {
     className: ""
   }, itemProps.subLabel) : null);
 });
@@ -155,7 +155,7 @@ var Dropzone$1 = (function (props) {
     customOnValueChanged(items);
   };
 
-  return /*#__PURE__*/React__default.createElement(Dropzone, _extends({
+  return /*#__PURE__*/React.createElement(Dropzone, _extends({
     onChangeStatus: handleChangeStatus,
     accept: "image/*,audio/*,video/*",
     initialFiles: initialValues[id] ? initialValues[id] : [],
@@ -173,7 +173,7 @@ var Select = (function (props) {
       id = _props$item.id,
       itemProps = _props$item.props;
   var options = itemProps.options;
-  return /*#__PURE__*/React__default.createElement(Select$1, {
+  return /*#__PURE__*/React.createElement(Select$1, {
     labelId: id,
     id: id,
     className: " " + (errors[id] ? 'bg-red-100 select-error' : ''),
@@ -184,7 +184,7 @@ var Select = (function (props) {
       return customOnValueChanged(value);
     }
   }, options.map(function (option) {
-    return /*#__PURE__*/React__default.createElement(MenuItem, {
+    return /*#__PURE__*/React.createElement(MenuItem, {
       value: option.value
     }, option.label);
   }));
@@ -196,7 +196,7 @@ var TextArea = (function (props) {
       errors = props.errors,
       _props$item = props.item,
       id = _props$item.id;
-  return /*#__PURE__*/React__default.createElement(TextareaAutosize, _extends({}, field, {
+  return /*#__PURE__*/React.createElement(TextareaAutosize, _extends({}, field, {
     onChange: function onChange(_ref) {
       var value = _ref.target.value;
       return customOnValueChanged(value);
@@ -3932,7 +3932,7 @@ var ReactFlagsSelect = function (_a) {
     var getSelectedFlag = function () {
         var selectedFlagName = countryCodeToPascalCase(validSelectedValue);
         var SelectedFlag = getFlag(selectedFlagName);
-        return React__default.createElement(SelectedFlag, null);
+        return React.createElement(SelectedFlag, null);
     };
     var getLabel = function (countryCode) {
         return customLabels[countryCode] || countries[countryCode];
@@ -3986,52 +3986,52 @@ var ReactFlagsSelect = function (_a) {
             setIsDropdownOpen(false);
         }
     };
-    useEffect$1(function () {
+    useEffect(function () {
         setCountriesOptions(getCountryCodes(countries$1, blacklistCountries));
     }, [countries$1, blacklistCountries]);
-    useEffect$1(function () {
+    useEffect(function () {
         window.addEventListener("click", closeDropdown);
         return function () {
             window.removeEventListener("click", closeDropdown);
         };
     }, []);
     var displayLabel = getLabel(validSelectedValue);
-    return (React__default.createElement("div", { className: classnames(styles.flagsSelect, className, (_b = {},
+    return (React.createElement("div", { className: classnames(styles.flagsSelect, className, (_b = {},
             _b[styles.flagsSelectInline] = !fullWidth,
             _b)), id: id, "data-testid": "rfs" },
-        React__default.createElement("button", { ref: selectedFlagRef, id: "rfs-btn", type: "button", className: classnames(styles.selectBtn, selectButtonClassName, (_c = {},
+        React.createElement("button", { ref: selectedFlagRef, id: "rfs-btn", type: "button", className: classnames(styles.selectBtn, selectButtonClassName, (_c = {},
                 _c[styles.disabledBtn] = disabled,
                 _c)), style: { fontSize: selectedSize }, onClick: toggleDropdown, onKeyUp: function (e) { return closeDropdwownWithKeyboard(e); }, disabled: disabled, "aria-labelledby": "rfs-btn", "aria-haspopup": "listbox", "aria-expanded": isDropdownOpen, "data-testid": "rfs-btn" },
-            React__default.createElement("span", { className: styles.selectValue }, validSelectedValue ? (React__default.createElement(React__default.Fragment, null,
-                React__default.createElement("span", { className: styles.selectFlag, "data-testid": "rfs-selected-flag" }, getSelectedFlag()),
-                showSelectedLabel && (React__default.createElement("span", { className: styles.label }, isCustomLabelObject(displayLabel)
+            React.createElement("span", { className: styles.selectValue }, validSelectedValue ? (React.createElement(React.Fragment, null,
+                React.createElement("span", { className: styles.selectFlag, "data-testid": "rfs-selected-flag" }, getSelectedFlag()),
+                showSelectedLabel && (React.createElement("span", { className: styles.label }, isCustomLabelObject(displayLabel)
                     ? displayLabel.primary
                     : displayLabel)),
                 showSecondarySelectedLabel &&
-                    isCustomLabelObject(displayLabel) && (React__default.createElement("span", { className: styles.secondaryLabel }, displayLabel.secondary)))) : (React__default.createElement(React__default.Fragment, null, placeholder || defaultPlaceholder)))),
-        !disabled && isDropdownOpen && (React__default.createElement("ul", { tabIndex: -1, role: "listbox", ref: optionsRef, style: { fontSize: optionsSize }, className: classnames(styles.selectOptions, (_d = {},
+                    isCustomLabelObject(displayLabel) && (React.createElement("span", { className: styles.secondaryLabel }, displayLabel.secondary)))) : (React.createElement(React.Fragment, null, placeholder || defaultPlaceholder)))),
+        !disabled && isDropdownOpen && (React.createElement("ul", { tabIndex: -1, role: "listbox", ref: optionsRef, style: { fontSize: optionsSize }, className: classnames(styles.selectOptions, (_d = {},
                 _d[styles.selectOptionsWithSearch] = searchable,
                 _d[styles.alignOptionsToRight] = alignOptionsToRight,
                 _d[styles.fullWidthOptions] = fullWidth,
                 _d)) },
-            searchable && (React__default.createElement("div", { className: styles.filterBox },
-                React__default.createElement("input", { type: "text", name: "rfs-q", autoComplete: "off", value: filterValue, placeholder: searchPlaceholder || defaultSearchPlaceholder, ref: filterTextRef, onChange: filterSearch }))),
+            searchable && (React.createElement("div", { className: styles.filterBox },
+                React.createElement("input", { type: "text", name: "rfs-q", autoComplete: "off", value: filterValue, placeholder: searchPlaceholder || defaultSearchPlaceholder, ref: filterTextRef, onChange: filterSearch }))),
             options.map(function (countryCode) {
                 var _a;
                 var countryFlagName = countryCodeToPascalCase(countryCode);
                 var CountryFlag = getFlag(countryFlagName);
                 var countryLabel = getLabel(countryCode);
-                return (React__default.createElement("li", { key: countryCode, id: "rfs-" + countryCode, role: "option", tabIndex: 0, className: classnames(styles.selectOption, (_a = {},
+                return (React.createElement("li", { key: countryCode, id: "rfs-" + countryCode, role: "option", tabIndex: 0, className: classnames(styles.selectOption, (_a = {},
                         _a[styles.selectOptionWithlabel] = showOptionLabel,
                         _a)), onClick: function () { return onOptionSelect(countryCode); }, onKeyUp: function (e) { return onSelectWithKeyboard(e, countryCode); } },
-                    React__default.createElement("span", { className: styles.selectOptionValue },
-                        React__default.createElement("span", { className: styles.selectFlag },
-                            React__default.createElement(CountryFlag, null)),
-                        showOptionLabel && (React__default.createElement("span", { className: styles.label }, isCustomLabelObject(countryLabel)
+                    React.createElement("span", { className: styles.selectOptionValue },
+                        React.createElement("span", { className: styles.selectFlag },
+                            React.createElement(CountryFlag, null)),
+                        showOptionLabel && (React.createElement("span", { className: styles.label }, isCustomLabelObject(countryLabel)
                             ? countryLabel.primary
                             : countryLabel)),
                         showSecondaryOptionLabel &&
-                            isCustomLabelObject(countryLabel) && (React__default.createElement("span", { className: styles.secondaryLabel }, countryLabel.secondary)))));
+                            isCustomLabelObject(countryLabel) && (React.createElement("span", { className: styles.secondaryLabel }, countryLabel.secondary)))));
             })))));
 };
 //# sourceMappingURL=index.esm.js.map
@@ -4043,7 +4043,7 @@ var SelectCountry = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(ReactFlagsSelect, _extends({
+  return /*#__PURE__*/React.createElement(ReactFlagsSelect, _extends({
     selected: values[id],
     onSelect: customOnValueChanged
   }, itemProps, {
@@ -4059,9 +4059,9 @@ var InputPhoneNumber = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "border-2 border-warmGray-300 rounded-md px-4 py-4"
-  }, /*#__PURE__*/React__default.createElement(PhoneInput, _extends({
+  }, /*#__PURE__*/React.createElement(PhoneInput, _extends({
     placeholder: "Enter phone number",
     value: values[id],
     onChange: function onChange(value) {
@@ -4080,15 +4080,15 @@ var DatePicker = (function (props) {
       label = _props$item.label,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(LocalizationProvider, {
+  return /*#__PURE__*/React.createElement(LocalizationProvider, {
     dateAdapter: dateAdapter
-  }, /*#__PURE__*/React__default.createElement(DatePicker$1, _extends({
+  }, /*#__PURE__*/React.createElement(DatePicker$1, _extends({
     label: label,
     value: values[id],
     onChange: customOnValueChanged
   }, itemProps, {
     renderInput: function renderInput(params) {
-      return /*#__PURE__*/React__default.createElement(TextField, params);
+      return /*#__PURE__*/React.createElement(TextField, params);
     }
   })));
 });
@@ -4120,7 +4120,7 @@ var Editor = function Editor(props) {
       break;
   }
 
-  return /*#__PURE__*/React__default.createElement(AceEditor, props);
+  return /*#__PURE__*/React.createElement(AceEditor, props);
 };
 
 var AceEditor = (function (props) {
@@ -4130,7 +4130,7 @@ var AceEditor = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(Editor, _extends({
+  return /*#__PURE__*/React.createElement(Editor, _extends({
     value: values[id],
     mode: "jade",
     theme: "github",
@@ -4158,7 +4158,7 @@ var CronGenerator = (function (props) {
       customOnValueChanged = props.customOnValueChanged,
       _props$item = props.item,
       id = _props$item.id;
-  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(ReCron, {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ReCron, {
     value: values[id],
     onChange: customOnValueChanged
   }));
@@ -4171,7 +4171,7 @@ var JSONEditor = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(JSONInput, _extends({
+  return /*#__PURE__*/React.createElement(JSONInput, _extends({
     id: "a_unique_id",
     placeholder: values[id],
     onChange: function onChange(val) {
@@ -4205,7 +4205,7 @@ var CronEditor = (function (props) {
     return [];
   };
 
-  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(TextField, _extends({
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(TextField, _extends({
     label: label,
     variant: "outlined"
   }, field, {
@@ -4215,10 +4215,10 @@ var CronEditor = (function (props) {
       var value = _ref.target.value;
       return customOnValueChanged(value);
     }
-  })), /*#__PURE__*/React__default.createElement("p", {
+  })), /*#__PURE__*/React.createElement("p", {
     className: "text-xs mt-6 text-warmGray-500"
-  }, /*#__PURE__*/React__default.createElement("ul", null, iterations().map(function (i) {
-    return /*#__PURE__*/React__default.createElement("li", null, i);
+  }, /*#__PURE__*/React.createElement("ul", null, iterations().map(function (i) {
+    return /*#__PURE__*/React.createElement("li", null, i);
   }))));
 });
 
@@ -4232,17 +4232,17 @@ var Autocomplete = (function (props) {
       id = _props$item.id,
       itemProps = _props$item.props;
 
-  var _React$useState = useState(false),
-      open = _React$useState[0],
-      setOpen = _React$useState[1];
+  var _useState = useState(false),
+      open = _useState[0],
+      setOpen = _useState[1];
 
-  var _React$useState2 = useState([]),
-      options = _React$useState2[0],
-      setOptions = _React$useState2[1];
+  var _useState2 = useState([]),
+      options = _useState2[0],
+      setOptions = _useState2[1];
 
-  var _React$useState3 = useState(false),
-      isLoading = _React$useState3[0],
-      setIsLoading = _React$useState3[1];
+  var _useState3 = useState(false),
+      isLoading = _useState3[0],
+      setIsLoading = _useState3[1];
 
   useEffect(function () {
 
@@ -4268,7 +4268,7 @@ var Autocomplete = (function (props) {
     }
   };
 
-  return /*#__PURE__*/createElement(Autocomplete$1, _extends({
+  return /*#__PURE__*/React.createElement(Autocomplete$1, _extends({
     id: "asynchronous-demo",
     open: open,
     onOpen: function onOpen() {
@@ -4286,7 +4286,7 @@ var Autocomplete = (function (props) {
     },
     defaultValue: values && values[id] ? values[id] : initialValues[id],
     renderInput: function renderInput(params) {
-      return /*#__PURE__*/createElement(TextField, _extends({}, params, field, {
+      return /*#__PURE__*/React.createElement(TextField, _extends({}, params, field, {
         label: label,
         onChange: function onChange(_ref2) {
           var value = _ref2.target.value;
@@ -4296,7 +4296,7 @@ var Autocomplete = (function (props) {
           return Promise.resolve();
         },
         InputProps: _extends({}, params.InputProps, {
-          endAdornment: /*#__PURE__*/createElement(Fragment$1, null, isLoading ? /*#__PURE__*/createElement(CircularProgress, {
+          endAdornment: /*#__PURE__*/React.createElement(React.Fragment, null, isLoading ? /*#__PURE__*/React.createElement(CircularProgress, {
             color: "inherit",
             size: 20
           }) : null, params.InputProps.endAdornment)
@@ -4315,7 +4315,7 @@ var RadioGroup = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(RadioGroup$1, _extends({
+  return /*#__PURE__*/React.createElement(RadioGroup$1, _extends({
     "aria-label": "gender",
     defaultValue: "female",
     name: "radio-buttons-group",
@@ -4330,9 +4330,9 @@ var RadioGroup = (function (props) {
   }), itemProps.options.map(function (_ref2) {
     var value = _ref2.value,
         label = _ref2.label;
-    return /*#__PURE__*/React__default.createElement(FormControlLabel, {
+    return /*#__PURE__*/React.createElement(FormControlLabel, {
       value: value,
-      control: /*#__PURE__*/React__default.createElement(Radio, null),
+      control: /*#__PURE__*/React.createElement(Radio, null),
       label: label
     });
   }));
@@ -4341,13 +4341,13 @@ var RadioGroup = (function (props) {
 var Html = (function (props) {
   var _props$item = props.item,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(Fragment, null, itemProps.content);
+  return /*#__PURE__*/React.createElement(Fragment, null, itemProps.content);
 });
 
 var Divider = (function (props) {
   var _props$item = props.item,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "divider " + (itemProps.vertical ? 'divider-vertical' : '') + " "
   }, itemProps.content);
 });
@@ -4357,9 +4357,9 @@ var Button = (function (props) {
       label = _props$item.label,
       itemProps = _props$item.props;
   var onClick = itemProps.onClick;
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "flex justify-center my-2"
-  }, /*#__PURE__*/React__default.createElement(Button$1, {
+  }, /*#__PURE__*/React.createElement(Button$1, {
     variant: "text",
     onClick: onClick
   }, label));
@@ -4370,7 +4370,7 @@ var ButtonGroup = (function (props) {
       id = _props$item.id,
       itemProps = _props$item.props;
   var options = itemProps.options;
-  return /*#__PURE__*/React__default.createElement(ButtonGroup$1, {
+  return /*#__PURE__*/React.createElement(ButtonGroup$1, {
     className: " " + (errors[id] ? 'bg-red-100 select-error' : ''),
     value: values[id] ? values[id] : initialValues[id],
     variant: "contained",
@@ -4380,7 +4380,7 @@ var ButtonGroup = (function (props) {
       return customOnValueChanged(value);
     }
   }, options.map(function (option) {
-    return /*#__PURE__*/React__default.createElement(Button$1, null, option.value);
+    return /*#__PURE__*/React.createElement(Button$1, null, option.value);
   }));
 });
 
@@ -4391,8 +4391,8 @@ var SwitchControl = (function (props) {
       label = _props$item.label,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(FormGroup, null, /*#__PURE__*/React__default.createElement(FormControlLabel, _extends({
-    control: /*#__PURE__*/React__default.createElement(Switch, {
+  return /*#__PURE__*/React.createElement(FormGroup, null, /*#__PURE__*/React.createElement(FormControlLabel, _extends({
+    control: /*#__PURE__*/React.createElement(Switch, {
       color: "default",
       checked: values[id],
       onChange: function onChange(_ref) {
@@ -4410,7 +4410,7 @@ var Rating = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(Rating$1, _extends({
+  return /*#__PURE__*/React.createElement(Rating$1, _extends({
     name: "simple-controlled",
     value: values[id],
     size: "large",
@@ -4426,17 +4426,17 @@ var DateRangePicker = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
-  return /*#__PURE__*/React__default.createElement(LocalizationProvider, {
+  return /*#__PURE__*/React.createElement(LocalizationProvider, {
     dateAdapter: dateAdapter
-  }, /*#__PURE__*/React__default.createElement(DateRangePicker$1, _extends({
+  }, /*#__PURE__*/React.createElement(DateRangePicker$1, _extends({
     value: values[id] && Array.isArray(values[id]) ? values[id] : [null, null],
     onChange: customOnValueChanged,
     renderInput: function renderInput(startProps, endProps) {
-      return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(TextField, startProps), /*#__PURE__*/React__default.createElement(Box, {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(TextField, startProps), /*#__PURE__*/React.createElement(Box, {
         sx: {
           mx: 2
         }
-      }, " to "), /*#__PURE__*/React__default.createElement(TextField, endProps));
+      }, " to "), /*#__PURE__*/React.createElement(TextField, endProps));
     }
   }, itemProps)));
 });
@@ -4486,7 +4486,7 @@ var entry = (function (props) {
     customOnValueChanged && customOnValueChanged(data);
   };
 
-  return /*#__PURE__*/React__default.createElement(Formulaik, {
+  return /*#__PURE__*/React.createElement(Formulaik, {
     componentsLibraries: [].concat(itemProps.componentsLibraries, [FormulaikMui]),
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -4575,9 +4575,9 @@ var ListEditor = (function (props) {
     }
   };
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "mt-6"
-  }, /*#__PURE__*/React__default.createElement(Formulaik, {
+  }, /*#__PURE__*/React.createElement(Formulaik, {
     componentsLibraries: [].concat(itemProps.componentsLibraries, [componentsLibrary, FormulaikMui]),
     initialValues: initialValues,
     validationSchema: validationSchema,
