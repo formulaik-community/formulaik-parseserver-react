@@ -1,10 +1,10 @@
 {
-  "name": "formulaik",
+  "name": "formulaik-mui",
   "version": "1.0.0",
-  "description": "Core formulaik engine.",
+  "description": "Formulaik-mui components library.",
   "author": "yelounak",
   "license": "MIT",
-  "repository": "yelounak/formulaik",
+  "repository": "yelounak/formulaik-mui",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",

@@ -1,13 +1,13 @@
-# formulaik
+# formulaik-mui
 
-> Core formulaik engine.
+> Formulaik-mui components library.
 
-[![NPM](https://img.shields.io/npm/v/formulaik.svg)](https://www.npmjs.com/package/formulaik) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/formulaik-mui.svg)](https://www.npmjs.com/package/formulaik-mui) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save formulaik
+npm install --save formulaik-mui
 ```
 
 ## Usage
@@ -15,8 +15,8 @@ npm install --save formulaik
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'formulaik'
-import 'formulaik/dist/index.css'
+import MyComponent from 'formulaik-mui'
+import 'formulaik-mui/dist/index.css'
 
 class Example extends Component {
   render() {
