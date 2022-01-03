@@ -58,7 +58,6 @@ export default (props) => {
         data = data.filter(a => a)
     }
 
-
     const validationSchema = () => {
         return Yup.object().shape({
             items: multiple ? Yup.array() : Yup.object()
@@ -82,7 +81,6 @@ export default (props) => {
             }
         },
     ]
-
 
     const initialValues = {
         items: data
