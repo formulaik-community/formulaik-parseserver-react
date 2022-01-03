@@ -526,11 +526,11 @@ export default (props) => {
         </div>
         <div className="flex justify-end mr-4">
           {query ?
-            <>
+            <div>
               {/* <Button className={'mr-4'}>Preview</Button> */}
               <Button onClick={onClear}>Clear</Button>
 
-            </>
+            </div>
             : null}
           {itemProps.onRemove ?
             <Button onClick={onRemove}>Remove data query</Button> : null}

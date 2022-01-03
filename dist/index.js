@@ -888,7 +888,7 @@ var ParseQuery = (function (props) {
     className: ""
   }, /*#__PURE__*/React__default.createElement("h4", null, label + " \u27BB " + (key ? "" + key : "" + (className ? className : '')))), /*#__PURE__*/React__default.createElement("div", {
     className: "flex justify-end mr-4"
-  }, query ? /*#__PURE__*/React__default.createElement(Fragment, null, /*#__PURE__*/React__default.createElement(Button, {
+  }, query ? /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(Button, {
     onClick: onClear
   }, "Clear")) : null, itemProps.onRemove ? /*#__PURE__*/React__default.createElement(Button, {
     onClick: onRemove

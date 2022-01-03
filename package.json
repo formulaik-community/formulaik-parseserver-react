@@ -32,7 +32,8 @@
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.6",
     "@mui/styles": "^5.2.3",
-    "underscore": "^1.13.2"
+    "underscore": "^1.13.2",
+    "parse": "^3.4.0"
   },
   "dependencies": {},
   "devDependencies": {
