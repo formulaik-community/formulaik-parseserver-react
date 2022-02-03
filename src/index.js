@@ -2,6 +2,7 @@ import ParseQuery from './parseQuery'
 import ParseObjectAutoComplete from './parseObjectAutoComplete'
 import Wheres from './wheres'
 import WhereSingle from './whereSingle'
+import VisualSelectForParseRef from './visualSelectForParseRef'
 
 export default (props) => {
   const { type } = props
@@ -14,6 +15,8 @@ export default (props) => {
       return WhereSingle
     case 'wheres':
       return Wheres
+    case 'visualSelectForParseRef':
+      return VisualSelectForParseRef
     default:
       return null
   }
