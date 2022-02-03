@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Formulaik from '@yelounak/formulaik'
 import FormulaikMui from '@yelounak/formulaik-mui'
-import VisualSelect from '../visualSelect'
 import * as Yup from 'yup'
 
 import fetchRefs from './fetchRefs'
@@ -77,16 +76,8 @@ export default (props) => {
     customOnValueChanged && customOnValueChanged(values)
   }
 
-  const customFormulaikLibrary = (props) => {
-    switch (props.type) {
-      case 'visualSelect':
-        return VisualSelect
-      default: return null
-    }
-  }
-
   return <Formulaik
-    componentsLibraries={[FormulaikMui, customFormulaikLibrary]}
+    componentsLibraries={[FormulaikMui]}
     initialValues={initialValues}
     validationSchema={validationSchema}
     formItemsProvider={formItemsProvider}
