@@ -1,15 +1,21 @@
 {
-  "name": "formulaik-parseserver",
-  "version": "1.0.0",
+  "name": "@yelounak/formulaik-parseserver",
+  "version": "1.0.1",
   "description": "formulaik-parseserver components library.",
   "author": "yelounak",
   "license": "MIT",
-  "repository": "yelounak/formulaik-parseserver",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yelounak/formulaik-parseserver"
+  },
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
   "engines": {
     "node": ">=10"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/yelounak"
   },
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
@@ -27,8 +33,8 @@
     "react": ">= 0.16.0 < 18.0.0",
     "underscore": "^1.13.1",
     "yup": "^0.32.11",
-    "formulaik": "git+https://28b1fe741a74422f216eaa7128b8b5914bb12594:x-oauth-basic@github.com/yelounak/formulaik.git",
-    "formulaik-mui": "git+https://28b1fe741a74422f216eaa7128b8b5914bb12594:x-oauth-basic@github.com/yelounak/formulaik-mui.git",
+    "@yelounak/formulaik": ">= 1.0.0 < 2.0.0",
+    "@yelounak/formulaik-mui": ">= 1.0.0 < 2.0.0",
     "@material-ui/core": "5.0.0-alpha.24",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.6",
@@ -36,7 +42,8 @@
     "parse": "^3.4.0"
   },
   "dependencies": {
-    "react-json-view-ssr": "^1.19.1"
+    "react-json-view-ssr": "^1.19.1",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",

@@ -2,8 +2,8 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = require('react');
 var React__default = _interopDefault(React);
-var Formulaik = _interopDefault(require('formulaik'));
-var FormulaikMui = _interopDefault(require('formulaik-mui'));
+var Formulaik = _interopDefault(require('@yelounak/formulaik'));
+var FormulaikMui = _interopDefault(require('@yelounak/formulaik-mui'));
 var Yup = require('yup');
 var Button = _interopDefault(require('@mui/material/Button'));
 var CircularProgress = _interopDefault(require('@mui/material/CircularProgress'));

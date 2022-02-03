@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Formulaik from 'formulaik'
-import FormulaikMui from 'formulaik-mui'
+import Formulaik from '@yelounak/formulaik'
+import FormulaikMui from '@yelounak/formulaik-mui'
 import * as Yup from 'yup'
 
 const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], queryHook, data }) => {
