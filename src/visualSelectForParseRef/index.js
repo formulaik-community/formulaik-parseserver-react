@@ -33,7 +33,12 @@ export default (props) => {
   }
 
   if (!refs) {
-    return <div></div>
+    return <div className='
+    align-middle
+    text-center
+    py-4'>
+      <h4>Loading</h4>
+    </div>
   }
 
   if (Array.isArray(items)) {
@@ -43,6 +48,8 @@ export default (props) => {
   const validationSchema = () => {
     return Yup.object().shape({
       items: Yup.array()
+        .min(itemProps.visualSelectProps.minSelectionAllowed, itemProps.visualSelectProps.minSelectionAllowedMessage)
+        .max(itemProps.visualSelectProps.maxSelectionAllowed, itemProps.visualSelectProps.maxSelectionAllowedMessage)
     })
   }
 
