@@ -1067,6 +1067,187 @@ var ParseObjectAutoComplete = (function (props) {
   });
 });
 
+// A type of promise-like that resolves synchronously and supports only one observer
+
+const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
+
+const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
+
+// Asynchronously call a function and send errors to recovery continuation
+function _catch(body, recover) {
+	try {
+		var result = body();
+	} catch(e) {
+		return recover(e);
+	}
+	if (result && result.then) {
+		return result.then(void 0, recover);
+	}
+	return result;
+}
+
+var fetchRefs = (function (_ref) {
+  var search = _ref.search,
+      sort = _ref.sort,
+      filter = _ref.filter,
+      className = _ref.className,
+      _ref$include = _ref.include,
+      include = _ref$include === void 0 ? [] : _ref$include,
+      _ref$exclude = _ref.exclude,
+      exclude = _ref$exclude === void 0 ? [] : _ref$exclude,
+      queryHook = _ref.queryHook;
+
+  try {
+    console.log('fetchItems: ', className);
+
+    if (!className) {
+      return Promise.resolve([]);
+    }
+
+    if (search && search.length < 2) {
+      return Promise.resolve([]);
+    }
+
+    var _className = className;
+    console.log('fetchItems: _className', _className);
+
+    if (!_className) {
+      return Promise.resolve([]);
+    }
+
+    var query = new Parse.Query(_className);
+
+    switch (sort) {
+      case 'desc':
+        query.descending('createdAt');
+        break;
+
+      default:
+        query.ascending('createdAt');
+        break;
+    }
+
+    queryHook && queryHook({
+      query: query,
+      search: search,
+      sort: sort,
+      filter: filter
+    });
+
+    if (filter !== 'all') {}
+
+    query.include(include);
+    query.exclude(exclude);
+    return Promise.resolve(query.find());
+  } catch (e) {
+    return Promise.reject(e);
+  }
+});
+
+var VisualSelectForParseRef = (function (props) {
+  var values = props.values,
+      customOnValueChanged = props.customOnValueChanged,
+      _props$item = props.item,
+      label = _props$item.label,
+      id = _props$item.id,
+      itemProps = _props$item.props;
+
+  var _useState = useState(null),
+      refs = _useState[0],
+      setRefs = _useState[1];
+
+  var _useState2 = useState(null),
+      error = _useState2[0];
+
+  var items = values[id] ? values[id] : [];
+  useEffect(function () {
+    fetch();
+  }, []);
+
+  var fetch = function fetch() {
+    try {
+      var _temp2 = _catch(function () {
+        var _itemProps$fetchParam = itemProps.fetchParameters,
+            include = _itemProps$fetchParam.include,
+            exclude = _itemProps$fetchParam.exclude,
+            queryHook = _itemProps$fetchParam.queryHook,
+            className = _itemProps$fetchParam.className,
+            search = _itemProps$fetchParam.search;
+        return Promise.resolve(fetchRefs({
+          search: search,
+          className: className,
+          include: include,
+          exclude: exclude,
+          queryHook: queryHook
+        })).then(function (_refs) {
+          setRefs(_refs);
+        });
+      }, function () {});
+
+      return Promise.resolve(_temp2 && _temp2.then ? _temp2.then(function () {}) : void 0);
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
+
+  if (!refs) {
+    return /*#__PURE__*/React.createElement("div", null);
+  }
+
+  if (Array.isArray(items)) {
+    items = items.filter(function (a) {
+      return a;
+    });
+  }
+
+  var validationSchema = function validationSchema() {
+    return object().shape({
+      items: array()
+    });
+  };
+
+  var visualSelectItems = function visualSelectItems() {
+    return refs.map(function (ref) {
+      return {
+        id: ref.id,
+        props: itemProps.mapRefProps(ref)
+      };
+    });
+  };
+
+  var formItemsProvider = [{
+    type: 'visualSelect',
+    schema: 'items',
+    label: label,
+    id: 'items',
+    props: _extends({
+      items: visualSelectItems()
+    }, itemProps.visualSelectProps)
+  }];
+  var initialValues = {
+    items: items.map(function (i) {
+      return i.id;
+    })
+  };
+
+  var onValuesChanged = function onValuesChanged(__values) {
+    var values = refs.filter(function (a) {
+      return __values.items.includes(a.id);
+    });
+    console.log('values', values);
+    customOnValueChanged && customOnValueChanged(values);
+  };
+
+  return /*#__PURE__*/React.createElement(Formulaik, {
+    componentsLibraries: [FormulaikMui],
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    formItemsProvider: formItemsProvider,
+    onValuesChanged: onValuesChanged,
+    error: error
+  });
+});
+
 var index = (function (props) {
   var type = props.type;
 
@@ -1082,6 +1263,9 @@ var index = (function (props) {
 
     case 'wheres':
       return Wheres;
+
+    case 'visualSelectForParseRef':
+      return VisualSelectForParseRef;
 
     default:
       return null;
