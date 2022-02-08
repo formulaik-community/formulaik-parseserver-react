@@ -1194,7 +1194,9 @@ var VisualSelectForParseRef = (function (props) {
   };
 
   if (!refs) {
-    return /*#__PURE__*/React__default.createElement("div", null);
+    return /*#__PURE__*/React__default.createElement("div", {
+      className: " align-middle text-center py-4"
+    }, /*#__PURE__*/React__default.createElement("h4", null, "Loading"));
   }
 
   if (Array.isArray(items)) {
@@ -1205,7 +1207,7 @@ var VisualSelectForParseRef = (function (props) {
 
   var validationSchema = function validationSchema() {
     return Yup.object().shape({
-      items: Yup.array()
+      items: Yup.array().min(itemProps.visualSelectProps.minSelectionAllowed, itemProps.visualSelectProps.minSelectionAllowedMessage).max(itemProps.visualSelectProps.maxSelectionAllowed, itemProps.visualSelectProps.maxSelectionAllowedMessage)
     });
   };
 
