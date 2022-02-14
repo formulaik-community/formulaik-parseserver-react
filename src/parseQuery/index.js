@@ -110,7 +110,7 @@ export default (props) => {
     return items
   }
 
-  const formItemsProvider = () => {
+  const inputs = () => {
     const classNameItem = {
       type: 'autocomplete',
       schema: 'className',
@@ -550,7 +550,7 @@ export default (props) => {
               componentsLibraries={[componentsLibrary, FormulaikMui]}
               initialValues={initialValues}
               validationSchema={validationSchema}
-              formItemsProvider={formItemsProvider}
+              inputs={inputs}
               onValuesChanged={onValuesChanged}
               error={error} />
           </div>

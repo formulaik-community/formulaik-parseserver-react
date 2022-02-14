@@ -60,7 +60,7 @@ export default (props) => {
     }))
   }
 
-  const formItemsProvider = [
+  const inputs = [
     {
       type: 'visualSelect',
       schema: 'items',
@@ -87,7 +87,7 @@ export default (props) => {
     componentsLibraries={[FormulaikMui]}
     initialValues={initialValues}
     validationSchema={validationSchema}
-    formItemsProvider={formItemsProvider}
+    inputs={inputs}
     onValuesChanged={onValuesChanged}
     error={error} />
 }

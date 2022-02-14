@@ -53,7 +53,7 @@ export default (props) => {
     updateValues({ values: __value })
   }
 
-  const formItemsProvider = () => {
+  const inputs = () => {
     const { fields } = schema
     const items = wheresToArray()
     return items.map((item, i) => ({
@@ -140,7 +140,7 @@ export default (props) => {
       componentsLibraries={[componentsLibrary, FormulaikMui]}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      formItemsProvider={formItemsProvider}
+      inputs={inputs}
       onValuesChanged={onValuesChanged}
       error={error} />
     {/* <div className="grid grid-cols-2 justify-between ">

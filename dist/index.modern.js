@@ -97,7 +97,7 @@ var WhereSingle = (function (props) {
     }
   };
 
-  var formItemsProvider = [{
+  var inputs = [{
     isMulti: true,
     className: 'flex',
     items: [{
@@ -157,7 +157,7 @@ var WhereSingle = (function (props) {
     componentsLibraries: [FormulaikMui],
     initialValues: initialValues,
     validationSchema: validationSchema,
-    formItemsProvider: formItemsProvider,
+    inputs: inputs,
     onValuesChanged: onValuesChanged,
     error: error
   });
@@ -222,7 +222,7 @@ var Wheres = (function (props) {
     });
   };
 
-  var formItemsProvider = function formItemsProvider() {
+  var inputs = function inputs() {
     var fields = schema.fields;
     var items = wheresToArray();
     return items.map(function (item, i) {
@@ -322,7 +322,7 @@ var Wheres = (function (props) {
     componentsLibraries: [componentsLibrary, FormulaikMui],
     initialValues: initialValues,
     validationSchema: validationSchema,
-    formItemsProvider: formItemsProvider,
+    inputs: inputs,
     onValuesChanged: onValuesChanged,
     error: error
   }));
@@ -453,7 +453,7 @@ var ParseQuery = (function (props) {
     return items;
   };
 
-  var formItemsProvider = function formItemsProvider() {
+  var inputs = function inputs() {
     var classNameItem = {
       type: 'autocomplete',
       schema: 'className',
@@ -903,7 +903,7 @@ var ParseQuery = (function (props) {
     componentsLibraries: [componentsLibrary, FormulaikMui],
     initialValues: initialValues,
     validationSchema: validationSchema,
-    formItemsProvider: formItemsProvider,
+    inputs: inputs,
     onValuesChanged: onValuesChanged,
     error: error
   })), query ? /*#__PURE__*/React.createElement("div", {
@@ -942,7 +942,7 @@ var fetchItems = function fetchItems(_ref) {
       key: className
     });
 
-    if (cachedItems && cachedItems.length) {
+    if (cachedItems) {
       return Promise.resolve(cachedItems);
     }
 
@@ -990,6 +990,7 @@ var fetchItems = function fetchItems(_ref) {
     query.include(include);
     query.exclude(exclude);
     return Promise.resolve(query.find()).then(function (results) {
+      results = results ? results : [];
       cache && cache.add({
         search: search,
         key: className,
@@ -1040,7 +1041,7 @@ var ParseObjectAutoComplete = (function (props) {
     });
   };
 
-  var formItemsProvider = [{
+  var inputs = [{
     type: 'autocomplete',
     schema: 'items',
     id: 'items',
@@ -1059,7 +1060,7 @@ var ParseObjectAutoComplete = (function (props) {
             exclude: exclude,
             queryHook: queryHook,
             data: data,
-            cache: itemProps.cache
+            cache: props.cache
           });
         } catch (e) {
           return Promise.reject(e);
@@ -1083,7 +1084,7 @@ var ParseObjectAutoComplete = (function (props) {
     componentsLibraries: [FormulaikMui],
     initialValues: initialValues,
     validationSchema: validationSchema,
-    formItemsProvider: formItemsProvider,
+    inputs: inputs,
     onValuesChanged: onValuesChanged,
     error: error
   });
@@ -1239,7 +1240,7 @@ var VisualSelectForParseRef = (function (props) {
     });
   };
 
-  var formItemsProvider = [{
+  var inputs = [{
     type: 'visualSelect',
     schema: 'items',
     label: label,
@@ -1266,7 +1267,7 @@ var VisualSelectForParseRef = (function (props) {
     componentsLibraries: [FormulaikMui],
     initialValues: initialValues,
     validationSchema: validationSchema,
-    formItemsProvider: formItemsProvider,
+    inputs: inputs,
     onValuesChanged: onValuesChanged,
     error: error
   });
@@ -1354,6 +1355,7 @@ var fetchItems$1 = function fetchItems(_ref2) {
     query.include(include);
     query.exclude(exclude);
     return Promise.resolve(query.find()).then(function (results) {
+      results = results ? results : [];
       cache && cache.add({
         search: search,
         key: className,
@@ -1417,7 +1419,7 @@ var ParseObjectAutoCompleteRef = (function (props) {
     return capitalize(nameLoc[locale]);
   };
 
-  var formItemsProvider = [{
+  var inputs = [{
     type: 'autocomplete',
     schema: 'items',
     id: 'items',
@@ -1437,7 +1439,7 @@ var ParseObjectAutoCompleteRef = (function (props) {
             queryHook: queryHook,
             data: data,
             locale: locale,
-            cache: itemProps.cache
+            cache: props.cache
           });
         } catch (e) {
           return Promise.reject(e);
@@ -1461,7 +1463,7 @@ var ParseObjectAutoCompleteRef = (function (props) {
     componentsLibraries: [FormulaikMui],
     initialValues: initialValues,
     validationSchema: validationSchema,
-    formItemsProvider: formItemsProvider,
+    inputs: inputs,
     onValuesChanged: onValuesChanged,
     error: error
   });

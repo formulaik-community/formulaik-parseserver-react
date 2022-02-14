@@ -58,7 +58,7 @@ export default (props) => {
         }
     }
   }
-  const formItemsProvider = [
+  const inputs = [
     {
       isMulti: true,
       className: 'flex',
@@ -131,7 +131,7 @@ export default (props) => {
     componentsLibraries={[FormulaikMui]}
     initialValues={initialValues}
     validationSchema={validationSchema}
-    formItemsProvider={formItemsProvider}
+    inputs={inputs}
     onValuesChanged={onValuesChanged}
     error={error} />
 }
