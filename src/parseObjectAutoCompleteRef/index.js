@@ -8,8 +8,6 @@ const capitalize = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-
-
 const queryHook = ({ query, search, sort, filter, locale }) => {
   // if (locale) {
   //     query.equalTo('locale', locale)
@@ -20,8 +18,12 @@ const queryHook = ({ query, search, sort, filter, locale }) => {
   }
 }
 
+const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], data, locale, cache }) => {
+  const cachedItems = cache && cache.get({ search, key: className })
+  if (cachedItems && cachedItems.length) {
+    return cachedItems
+  }
 
-const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], data, locale }) => {
   console.log('fetchItems: ', className)
   if (!className) {
     return []
@@ -55,12 +57,15 @@ const fetchItems = async ({ search, sort, filter, className, include = [], exclu
   //_query.fullText('name', controls.search.query ? controls.search.query : '')
   query.include(include)
   query.exclude(exclude)
-  return query.find()
+  var results = await query.find()
+  results = results ? results : []
+  cache && cache.add({ search, key: className, results })
+  return results
 }
 
 export default (props) => {
   const {
-    values,
+    value,
     customOnValueChanged,
     errors,
     item: { label, id, props: itemProps }
@@ -68,7 +73,7 @@ export default (props) => {
 
   const [error, setError] = useState(null)
   const { className, include = [], exclude = [], multiple = true, locale } = itemProps
-  var data = values[id]
+  var data = value
   if (!data) {
     data = multiple ? [] : null
   }
@@ -110,7 +115,7 @@ export default (props) => {
         multiple,
         filterSelectedOptions: true,
         fetcher: async ({ value }) => {
-          return fetchItems({ search: value, className, include, exclude, queryHook, data, locale })
+          return fetchItems({ search: value, className, include, exclude, queryHook, data, locale, cache: props.cache })
         },
         isOptionEqualToValue: (option, value) => { return (option.id === value.id) },
         getOptionLabel,

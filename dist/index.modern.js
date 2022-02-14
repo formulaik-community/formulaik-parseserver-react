@@ -933,9 +933,19 @@ var fetchItems = function fetchItems(_ref) {
       _ref$exclude = _ref.exclude,
       exclude = _ref$exclude === void 0 ? [] : _ref$exclude,
       queryHook = _ref.queryHook,
-      data = _ref.data;
+      data = _ref.data,
+      cache = _ref.cache;
 
   try {
+    var cachedItems = cache && cache.get({
+      search: search,
+      key: className
+    });
+
+    if (cachedItems && cachedItems.length) {
+      return Promise.resolve(cachedItems);
+    }
+
     console.log('fetchItems: ', className);
 
     if (!className) {
@@ -979,7 +989,14 @@ var fetchItems = function fetchItems(_ref) {
 
     query.include(include);
     query.exclude(exclude);
-    return Promise.resolve(query.find());
+    return Promise.resolve(query.find()).then(function (results) {
+      cache && cache.add({
+        search: search,
+        key: className,
+        results: results
+      });
+      return results;
+    });
   } catch (e) {
     return Promise.reject(e);
   }
@@ -1041,7 +1058,8 @@ var ParseObjectAutoComplete = (function (props) {
             include: include,
             exclude: exclude,
             queryHook: queryHook,
-            data: data
+            data: data,
+            cache: itemProps.cache
           });
         } catch (e) {
           return Promise.reject(e);
@@ -1278,9 +1296,19 @@ var fetchItems$1 = function fetchItems(_ref2) {
       _ref2$exclude = _ref2.exclude,
       exclude = _ref2$exclude === void 0 ? [] : _ref2$exclude,
       data = _ref2.data,
-      locale = _ref2.locale;
+      locale = _ref2.locale,
+      cache = _ref2.cache;
 
   try {
+    var cachedItems = cache && cache.get({
+      search: search,
+      key: className
+    });
+
+    if (cachedItems && cachedItems.length) {
+      return Promise.resolve(cachedItems);
+    }
+
     console.log('fetchItems: ', className);
 
     if (!className) {
@@ -1325,18 +1353,24 @@ var fetchItems$1 = function fetchItems(_ref2) {
 
     query.include(include);
     query.exclude(exclude);
-    return Promise.resolve(query.find());
+    return Promise.resolve(query.find()).then(function (results) {
+      cache && cache.add({
+        search: search,
+        key: className,
+        results: results
+      });
+      return results;
+    });
   } catch (e) {
     return Promise.reject(e);
   }
 };
 
 var ParseObjectAutoCompleteRef = (function (props) {
-  var values = props.values,
+  var value = props.value,
       customOnValueChanged = props.customOnValueChanged,
       _props$item = props.item,
       label = _props$item.label,
-      id = _props$item.id,
       itemProps = _props$item.props;
 
   var _useState = useState(null),
@@ -1350,7 +1384,7 @@ var ParseObjectAutoCompleteRef = (function (props) {
       _itemProps$multiple = itemProps.multiple,
       multiple = _itemProps$multiple === void 0 ? true : _itemProps$multiple,
       locale = itemProps.locale;
-  var data = values[id];
+  var data = value;
 
   if (!data) {
     data = multiple ? [] : null;
@@ -1402,7 +1436,8 @@ var ParseObjectAutoCompleteRef = (function (props) {
             exclude: exclude,
             queryHook: queryHook,
             data: data,
-            locale: locale
+            locale: locale,
+            cache: itemProps.cache
           });
         } catch (e) {
           return Promise.reject(e);

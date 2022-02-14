@@ -3,7 +3,11 @@ import Formulaik from '@yelounak/formulaik'
 import FormulaikMui from '@yelounak/formulaik-mui'
 import * as Yup from 'yup'
 
-const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], queryHook, data }) => {
+const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], queryHook, data, cache }) => {
+  const cachedItems = cache && cache.get({ search, key: className })
+  if (cachedItems) {
+    return cachedItems
+  }
   console.log('fetchItems: ', className)
   if (!className) {
     return []
@@ -37,7 +41,10 @@ const fetchItems = async ({ search, sort, filter, className, include = [], exclu
   //_query.fullText('name', controls.search.query ? controls.search.query : '')
   query.include(include)
   query.exclude(exclude)
-  return query.find()
+  var results = await query.find()
+  results = results ? results : []
+  cache && cache.add({ search, key: className, results })
+  return results
 }
 
 export default (props) => {
@@ -75,7 +82,7 @@ export default (props) => {
         multiple,
         filterSelectedOptions: true,
         fetcher: async ({ value }) => {
-          return fetchItems({ search: value, className, include, exclude, queryHook, data })
+          return fetchItems({ search: value, className, include, exclude, queryHook, data, cache: props.cache })
         },
         isOptionEqualToValue: (option, value) => { return (option.id === value.id) },
         getOptionLabel,
