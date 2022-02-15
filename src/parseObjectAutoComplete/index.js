@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Formulaik from '@yelounak/formulaik'
+//import Formulaik from 'components/shared/formulaik-core'
 import FormulaikMui from '@yelounak/formulaik-mui'
+//import FormulaikSpecific from 'components/shared/formulaik'
 import * as Yup from 'yup'
 
 const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], queryHook, data, cache }) => {
@@ -104,5 +106,6 @@ export default (props) => {
     validationSchema={validationSchema}
     inputs={inputs}
     onValuesChanged={onValuesChanged}
+    hideErrors
     error={error} />
 }

@@ -1089,6 +1089,7 @@ var ParseObjectAutoComplete = (function (props) {
     validationSchema: validationSchema,
     inputs: inputs,
     onValuesChanged: onValuesChanged,
+    hideErrors: true,
     error: error
   });
 });
@@ -1468,6 +1469,7 @@ var ParseObjectAutoCompleteRef = (function (props) {
     validationSchema: validationSchema,
     inputs: inputs,
     onValuesChanged: onValuesChanged,
+    hideErrors: true,
     error: error
   });
 });
