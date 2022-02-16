@@ -14,8 +14,6 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-
-
 import WheresComponent from '../wheres'
 const componentsLibrary = ({ type }) => {
   switch (type) {

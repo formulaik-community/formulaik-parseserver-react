@@ -7,16 +7,13 @@ import fetchRefs from './fetchRefs'
 
 export default (props) => {
   const {
-    values,
+    value,
     customOnValueChanged,
-    errors,
-    item: { label, id, props: itemProps }
+    item: { label, props: itemProps }
   } = props
+
   const [refs, setRefs] = useState(null)
-  const [error, setError] = useState(null)
-
-  var items = values[id] ? values[id] : []
-
+  var items = value ? value : []
 
   useEffect(() => {
     fetch()
@@ -83,11 +80,20 @@ export default (props) => {
     customOnValueChanged && customOnValueChanged(values)
   }
 
+  // const customFormulaikLibrary = (props) => {
+  //   switch (props.type) {
+  //     case 'visualSelect':
+  //       return VisualSelect
+  //     default: return null
+  //   }
+  // }
+
   return <Formulaik
-    componentsLibraries={[FormulaikMui]}
+    componentsLibraries={[FormulaikMui,]}
     initialValues={initialValues}
     validationSchema={validationSchema}
     inputs={inputs}
     onValuesChanged={onValuesChanged}
-    error={error} />
+    disabled={props.disabled}
+    readOnly={props.readOnly} />
 }

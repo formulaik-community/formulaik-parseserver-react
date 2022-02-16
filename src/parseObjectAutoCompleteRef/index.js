@@ -69,11 +69,11 @@ export default (props) => {
   const {
     value,
     customOnValueChanged,
-    errors,
-    item: { label, id, props: itemProps }
+    error,
+    item: { label, props: itemProps }
   } = props
 
-  const [error, setError] = useState(null)
+
   const { className, include = [], exclude = [], multiple = true, locale } = itemProps
   var data = value
   if (!data) {
@@ -133,12 +133,16 @@ export default (props) => {
     customOnValueChanged && customOnValueChanged(__values.items)
   }
 
-  return <Formulaik
-    componentsLibraries={[FormulaikMui]}
-    initialValues={initialValues}
-    validationSchema={validationSchema}
-    inputs={inputs}
-    onValuesChanged={onValuesChanged}
-    hideErrors
-    error={error} />
+  return <div className={`w-full ${error ? 'bg-red-100 ' : ''}`}>
+    <Formulaik
+      componentsLibraries={[FormulaikMui]}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      inputs={inputs}
+      onValuesChanged={onValuesChanged}
+      hideErrors
+      disabled={props.disabled}
+      readOnly={props.readOnly}
+    />
+  </div>
 }

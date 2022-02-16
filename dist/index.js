@@ -1007,16 +1007,12 @@ var fetchItems = function fetchItems(_ref) {
 };
 
 var ParseObjectAutoComplete = (function (props) {
-  var values = props.values,
+  var value = props.value,
       customOnValueChanged = props.customOnValueChanged,
+      error = props.error,
       _props$item = props.item,
       label = _props$item.label,
-      id = _props$item.id,
       itemProps = _props$item.props;
-
-  var _useState = React.useState(null),
-      error = _useState[0];
-
   var className = itemProps.className,
       _itemProps$include = itemProps.include,
       include = _itemProps$include === void 0 ? [] : _itemProps$include,
@@ -1026,7 +1022,7 @@ var ParseObjectAutoComplete = (function (props) {
       getOptionLabel = itemProps.getOptionLabel,
       _itemProps$multiple = itemProps.multiple,
       multiple = _itemProps$multiple === void 0 ? true : _itemProps$multiple;
-  var data = values[id];
+  var data = value;
 
   if (!data) {
     data = multiple ? [] : null;
@@ -1083,15 +1079,18 @@ var ParseObjectAutoComplete = (function (props) {
     customOnValueChanged && customOnValueChanged(__values.items);
   };
 
-  return /*#__PURE__*/React__default.createElement(Formulaik, {
+  return /*#__PURE__*/React__default.createElement("div", {
+    className: "w-full " + (error ? 'bg-red-100 ' : '')
+  }, /*#__PURE__*/React__default.createElement(Formulaik, {
     componentsLibraries: [FormulaikMui],
     initialValues: initialValues,
     validationSchema: validationSchema,
     inputs: inputs,
     onValuesChanged: onValuesChanged,
     hideErrors: true,
-    error: error
-  });
+    disabled: props.disabled,
+    readOnly: props.readOnly
+  }));
 });
 
 // A type of promise-like that resolves synchronously and supports only one observer
@@ -1172,21 +1171,17 @@ var fetchRefs = (function (_ref) {
 });
 
 var VisualSelectForParseRef = (function (props) {
-  var values = props.values,
+  var value = props.value,
       customOnValueChanged = props.customOnValueChanged,
       _props$item = props.item,
       label = _props$item.label,
-      id = _props$item.id,
       itemProps = _props$item.props;
 
   var _useState = React.useState(null),
       refs = _useState[0],
       setRefs = _useState[1];
 
-  var _useState2 = React.useState(null),
-      error = _useState2[0];
-
-  var items = values[id] ? values[id] : [];
+  var items = value ? value : [];
   React.useEffect(function () {
     fetch();
   }, []);
@@ -1273,7 +1268,8 @@ var VisualSelectForParseRef = (function (props) {
     validationSchema: validationSchema,
     inputs: inputs,
     onValuesChanged: onValuesChanged,
-    error: error
+    disabled: props.disabled,
+    readOnly: props.readOnly
   });
 });
 
@@ -1375,13 +1371,10 @@ var fetchItems$1 = function fetchItems(_ref2) {
 var ParseObjectAutoCompleteRef = (function (props) {
   var value = props.value,
       customOnValueChanged = props.customOnValueChanged,
+      error = props.error,
       _props$item = props.item,
       label = _props$item.label,
       itemProps = _props$item.props;
-
-  var _useState = React.useState(null),
-      error = _useState[0];
-
   var className = itemProps.className,
       _itemProps$include = itemProps.include,
       include = _itemProps$include === void 0 ? [] : _itemProps$include,
@@ -1463,15 +1456,18 @@ var ParseObjectAutoCompleteRef = (function (props) {
     customOnValueChanged && customOnValueChanged(__values.items);
   };
 
-  return /*#__PURE__*/React__default.createElement(Formulaik, {
+  return /*#__PURE__*/React__default.createElement("div", {
+    className: "w-full " + (error ? 'bg-red-100 ' : '')
+  }, /*#__PURE__*/React__default.createElement(Formulaik, {
     componentsLibraries: [FormulaikMui],
     initialValues: initialValues,
     validationSchema: validationSchema,
     inputs: inputs,
     onValuesChanged: onValuesChanged,
     hideErrors: true,
-    error: error
-  });
+    disabled: props.disabled,
+    readOnly: props.readOnly
+  }));
 });
 
 var fetchItems$2 = function fetchItems(_ref) {
@@ -1519,7 +1515,7 @@ var fetchItems$2 = function fetchItems(_ref) {
 
 var ParseObjectUniqueValue = (function (props) {
   var customOnValueChanged = props.customOnValueChanged,
-      values = props.values,
+      propsValue = props.value,
       errors = props.errors,
       _props$item = props.item,
       id = _props$item.id,
@@ -1532,7 +1528,7 @@ var ParseObjectUniqueValue = (function (props) {
       _itemProps$maxLength = itemProps.maxLength,
       maxLength = _itemProps$maxLength === void 0 ? 20 : _itemProps$maxLength;
 
-  var _useState = React.useState(values[id] ? values[id] : {
+  var _useState = React.useState(propsValue ? propsValue : {
     value: null,
     isValid: false,
     initialValue: ''
@@ -1618,6 +1614,8 @@ var ParseObjectUniqueValue = (function (props) {
   return /*#__PURE__*/React__default.createElement(OutlinedInput, {
     label: label,
     variant: "outlined",
+    disabled: props.disabled,
+    readOnly: props.readOnly,
     value: data.value,
     className: "" + (!data.isValid || errors[id] ? 'bg-red-100' : 'bg-green-100'),
     onChange: onChange,

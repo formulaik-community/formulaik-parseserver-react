@@ -51,15 +51,14 @@ const fetchItems = async ({ search, sort, filter, className, include = [], exclu
 
 export default (props) => {
   const {
-    values,
+    value,
     customOnValueChanged,
-    errors,
-    item: { label, id, props: itemProps }
+    error,
+    item: { label, props: itemProps }
   } = props
 
-  const [error, setError] = useState(null)
   const { className, include = [], exclude = [], queryHook, getOptionLabel, multiple = true } = itemProps
-  var data = values[id]
+  var data = value
   if (!data) {
     data = multiple ? [] : null
   }
@@ -100,12 +99,14 @@ export default (props) => {
     customOnValueChanged && customOnValueChanged(__values.items)
   }
 
-  return <Formulaik
+  return <div className={`w-full ${error ? 'bg-red-100 ' : ''}`}><Formulaik
     componentsLibraries={[FormulaikMui]}
     initialValues={initialValues}
     validationSchema={validationSchema}
     inputs={inputs}
     onValuesChanged={onValuesChanged}
     hideErrors
-    error={error} />
+    disabled={props.disabled}
+    readOnly={props.readOnly} />
+  </div>
 }

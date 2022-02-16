@@ -34,9 +34,9 @@ const fetchItems = async ({ search, filter, className, data, queryHook }) => {
 
 
 export default (props) => {
-  const { customOnValueChanged, values, field, errors, item: { id, label, props: itemProps } } = props
+  const { customOnValueChanged, value: propsValue, field, errors, item: { id, label, props: itemProps } } = props
   const { className, queryHook, minLength = 3, maxLength = 20 } = itemProps
-  const [data, setData] = useState(values[id] ? values[id] : { value: null, isValid: false, initialValue: '' })
+  const [data, setData] = useState(propsValue ? propsValue : { value: null, isValid: false, initialValue: '' })
   const initialValue = useRef(data.value)
 
   const [isLoading, setIsLoading] = useState(false)
@@ -81,6 +81,8 @@ export default (props) => {
   return <OutlinedInput
     label={label}
     variant="outlined"
+    disabled={props.disabled}
+    readOnly={props.readOnly}
     // {...field}
     value={data.value}
     className={`${(!data.isValid || errors[id]) ? 'bg-red-100' : 'bg-green-100'}`}
