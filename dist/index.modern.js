@@ -39,13 +39,13 @@ var WhereSingle = (function (props) {
       onValueChanged = props.onValueChanged,
       _props$item = props.item,
       id = _props$item.id,
-      itemProps = _props$item.props;
+      params = _props$item.params;
 
   var _useState = useState(null),
       error = _useState[0];
 
   var item = values[id];
-  var fields = itemProps.fields;
+  var fields = params.fields;
 
   var validationSchema = function validationSchema() {
     return object().shape({
@@ -106,7 +106,7 @@ var WhereSingle = (function (props) {
       id: 'fieldName',
       label: 'Field name',
       className: 'w-1/3 ml-2 mr-2',
-      props: {
+      params: {
         options: fieldNameOptions()
       }
     }, {
@@ -115,7 +115,7 @@ var WhereSingle = (function (props) {
       id: 'constraint',
       label: 'Constraint',
       className: 'w-1/3 ml-2 mr-2',
-      props: {
+      params: {
         options: [{
           label: "equalTo",
           value: 'equalTo'
@@ -168,7 +168,7 @@ var Wheres = (function (props) {
       onValueChanged = props.onValueChanged,
       _props$item = props.item,
       id = _props$item.id,
-      itemProps = _props$item.props;
+      params = _props$item.params;
   var _value = values[id];
 
   if (!_value || _.isEmpty(_value)) {
@@ -195,7 +195,7 @@ var Wheres = (function (props) {
   var _useState = useState(null),
       error = _useState[0];
 
-  var schema = itemProps.schema;
+  var schema = params.schema;
 
   var validationSchema = function validationSchema() {
     return object().shape();
@@ -229,7 +229,7 @@ var Wheres = (function (props) {
       return {
         type: 'where',
         id: item.id,
-        props: {
+        params: {
           fields: fields,
           handleRemove: handleRemove
         }
@@ -357,7 +357,7 @@ var ParseQuery = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       label = _props$item.label,
-      itemProps = _props$item.props;
+      params = _props$item.params;
   var schemas = useRef();
 
   var _useState = useState(null),
@@ -374,10 +374,10 @@ var ParseQuery = (function (props) {
       }
 
       return Promise.resolve(fetchSchemas()).then(function (items) {
-        var _itemProps$classNameI = itemProps.classNameInclude,
-            classNameInclude = _itemProps$classNameI === void 0 ? null : _itemProps$classNameI,
-            _itemProps$classNameE = itemProps.classNameExclude,
-            classNameExclude = _itemProps$classNameE === void 0 ? ['_Installation', '_Session'] : _itemProps$classNameE;
+        var _params$classNameIncl = params.classNameInclude,
+            classNameInclude = _params$classNameIncl === void 0 ? null : _params$classNameIncl,
+            _params$classNameExcl = params.classNameExclude,
+            classNameExclude = _params$classNameExcl === void 0 ? ['_Installation', '_Session'] : _params$classNameExcl;
 
         if (classNameInclude) {
           schemas.current = _.filter(items, function (item) {
@@ -460,7 +460,7 @@ var ParseQuery = (function (props) {
       id: 'className',
       label: 'Classname',
       className: 'w-1/3',
-      props: {
+      params: {
         fetcher: function (_ref3) {
 
           try {
@@ -482,7 +482,7 @@ var ParseQuery = (function (props) {
           var name = option;
           return "" + name;
         },
-        disabled: itemProps.blockClassName
+        disabled: params.blockClassName
       }
     };
 
@@ -490,16 +490,16 @@ var ParseQuery = (function (props) {
       return [classNameItem];
     }
 
-    return [classNameItem].concat(itemProps.showCustomKey ? [{
+    return [classNameItem].concat(params.showCustomKey ? [{
       type: 'input',
       schema: 'key',
       id: 'key',
       label: 'Custom Key',
       className: 'w-1/3',
-      props: {
+      params: {
         helperText: 'The prefix to this data query. Defaults to classname'
       }
-    }] : [], itemProps.showDependsOnUser ? [{
+    }] : [], params.showDependsOnUser ? [{
       isMulti: true,
       className: 'flex',
       items: [{
@@ -508,7 +508,7 @@ var ParseQuery = (function (props) {
         id: 'dependsOnUser',
         label: 'Depends on user',
         className: 'w-2/3 mr-2',
-        props: {
+        params: {
           subLabel: "Whether the query depends on the user queried from the target audience"
         }
       }].concat( [{
@@ -517,7 +517,7 @@ var ParseQuery = (function (props) {
         id: 'userAccessor',
         label: 'User Accessor',
         className: 'w-1/3 ml-2',
-        props: {
+        params: {
           helperText: 'The path to matching the user in this data query'
         }
       }] )
@@ -527,19 +527,19 @@ var ParseQuery = (function (props) {
       id: 'accessor',
       label: 'Data accessor ',
       className: 'w-1/3',
-      props: {
+      params: {
         helperText: '(advanced)'
       }
     }, {
       type: 'divider',
       id: 'divider',
-      props: {
+      params: {
         content: /*#__PURE__*/React.createElement("b", null, /*#__PURE__*/React.createElement("i", null, 'Wheres'))
       }
     }, {
       type: 'wheres',
       id: 'wheres',
-      props: {
+      params: {
         schema: query && schemas.current ? _.findWhere(schemas.current, {
           className: className
         }) : null
@@ -547,10 +547,10 @@ var ParseQuery = (function (props) {
     }, {
       type: 'divider',
       id: 'divider',
-      props: {
+      params: {
         content: /*#__PURE__*/React.createElement("b", null, /*#__PURE__*/React.createElement("i", null, 'Generic constraints'))
       }
-    }], itemProps.showLimit ? [{
+    }], params.showLimit ? [{
       isMulti: true,
       className: 'flex',
       items: [{
@@ -559,7 +559,7 @@ var ParseQuery = (function (props) {
         id: 'limit',
         label: 'Limit',
         className: 'w-1/3',
-        props: {
+        params: {
           helperText: 'This limit will be applied to the job. If unlimited, leave blank.'
         }
       }]
@@ -572,7 +572,7 @@ var ParseQuery = (function (props) {
         id: 'sortDirection',
         label: 'Sort direction',
         className: 'w-1/3 ',
-        props: {
+        params: {
           options: [{
             label: null,
             value: null
@@ -587,7 +587,7 @@ var ParseQuery = (function (props) {
       }, {
         type: 'divider',
         id: 'divider',
-        props: {
+        params: {
           vertical: true,
           content: /*#__PURE__*/React.createElement("b", null, 'For')
         }
@@ -597,7 +597,7 @@ var ParseQuery = (function (props) {
         id: 'sortField',
         label: 'sortField',
         className: 'w-2/3',
-        props: {
+        params: {
           options: fieldNameOptions()
         }
       }]
@@ -606,7 +606,7 @@ var ParseQuery = (function (props) {
       schema: 'include',
       id: 'include',
       label: 'Inclusions',
-      props: {
+      params: {
         helperText: ' (in the form of ["fieldA", "fieldB.fieldC"])'
       }
     }, {
@@ -614,7 +614,7 @@ var ParseQuery = (function (props) {
       schema: 'exclude',
       id: 'exclude',
       label: 'Exclusions (in the form of ["classNameA", "classNameB.classNameC"])',
-      props: {
+      params: {
         helperText: ' (in the form of ["fieldA", "fieldB.fieldC"])'
       }
     }]);
@@ -712,7 +712,7 @@ var ParseQuery = (function (props) {
 
   var updateQueryResult = function updateQueryResult() {
     try {
-      if (itemProps.hideQueryResult) {
+      if (params.hideQueryResult) {
         return Promise.resolve();
       }
 
@@ -763,8 +763,8 @@ var ParseQuery = (function (props) {
 
   var onRemove = function onRemove() {
     try {
-      if (itemProps.onRemove) {
-        itemProps.onRemove();
+      if (params.onRemove) {
+        params.onRemove();
       }
 
       return Promise.resolve();
@@ -845,7 +845,7 @@ var ParseQuery = (function (props) {
       }
     });
 
-    if (itemProps.showLimit && limit) {
+    if (params.showLimit && limit) {
       query.limit(parseInt(limit));
     }
 
@@ -891,7 +891,7 @@ var ParseQuery = (function (props) {
     className: "flex justify-end mr-4"
   }, query ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Button, {
     onClick: onClear
-  }, "Clear")) : null, itemProps.onRemove ? /*#__PURE__*/React.createElement(Button, {
+  }, "Clear")) : null, params.onRemove ? /*#__PURE__*/React.createElement(Button, {
     onClick: onRemove
   }, "Remove data query") : null))), /*#__PURE__*/React.createElement(AccordionDetails, null, !schemas.current ? /*#__PURE__*/React.createElement("div", {
     className: "w-full justify-center flex"
@@ -1009,16 +1009,16 @@ var ParseObjectAutoComplete = (function (props) {
       error = props.error,
       _props$item = props.item,
       label = _props$item.label,
-      itemProps = _props$item.props;
-  var className = itemProps.className,
-      _itemProps$include = itemProps.include,
-      include = _itemProps$include === void 0 ? [] : _itemProps$include,
-      _itemProps$exclude = itemProps.exclude,
-      exclude = _itemProps$exclude === void 0 ? [] : _itemProps$exclude,
-      queryHook = itemProps.queryHook,
-      getOptionLabel = itemProps.getOptionLabel,
-      _itemProps$multiple = itemProps.multiple,
-      multiple = _itemProps$multiple === void 0 ? true : _itemProps$multiple;
+      params = _props$item.params;
+  var className = params.className,
+      _params$include = params.include,
+      include = _params$include === void 0 ? [] : _params$include,
+      _params$exclude = params.exclude,
+      exclude = _params$exclude === void 0 ? [] : _params$exclude,
+      queryHook = params.queryHook,
+      getOptionLabel = params.getOptionLabel,
+      _params$multiple = params.multiple,
+      multiple = _params$multiple === void 0 ? true : _params$multiple;
   var data = value;
 
   if (!data) {
@@ -1042,7 +1042,7 @@ var ParseObjectAutoComplete = (function (props) {
     schema: 'items',
     id: 'items',
     label: label,
-    props: {
+    params: {
       multiple: multiple,
       filterSelectedOptions: true,
       fetcher: function (_ref2) {
@@ -1172,7 +1172,7 @@ var VisualSelectForParseRef = (function (props) {
       onValueChanged = props.onValueChanged,
       _props$item = props.item,
       label = _props$item.label,
-      itemProps = _props$item.props;
+      params = _props$item.params;
 
   var _useState = useState(null),
       refs = _useState[0],
@@ -1186,12 +1186,12 @@ var VisualSelectForParseRef = (function (props) {
   var fetch = function fetch() {
     try {
       var _temp2 = _catch(function () {
-        var _itemProps$fetchParam = itemProps.fetchParameters,
-            include = _itemProps$fetchParam.include,
-            exclude = _itemProps$fetchParam.exclude,
-            queryHook = _itemProps$fetchParam.queryHook,
-            className = _itemProps$fetchParam.className,
-            search = _itemProps$fetchParam.search;
+        var _params$fetchParamete = params.fetchParameters,
+            include = _params$fetchParamete.include,
+            exclude = _params$fetchParamete.exclude,
+            queryHook = _params$fetchParamete.queryHook,
+            className = _params$fetchParamete.className,
+            search = _params$fetchParamete.search;
         return Promise.resolve(fetchRefs({
           search: search,
           className: className,
@@ -1223,7 +1223,7 @@ var VisualSelectForParseRef = (function (props) {
 
   var validationSchema = function validationSchema() {
     return object().shape({
-      items: array().min(itemProps.visualSelectProps.minSelectionAllowed, itemProps.visualSelectProps.minSelectionAllowedMessage).max(itemProps.visualSelectProps.maxSelectionAllowed, itemProps.visualSelectProps.maxSelectionAllowedMessage)
+      items: array().min(params.visualSelectProps.minSelectionAllowed, params.visualSelectProps.minSelectionAllowedMessage).max(params.visualSelectProps.maxSelectionAllowed, params.visualSelectProps.maxSelectionAllowedMessage)
     });
   };
 
@@ -1231,7 +1231,7 @@ var VisualSelectForParseRef = (function (props) {
     return refs.map(function (ref) {
       return {
         id: ref.id,
-        props: itemProps.mapRefProps(ref)
+        params: params.mapRefProps(ref)
       };
     });
   };
@@ -1241,9 +1241,9 @@ var VisualSelectForParseRef = (function (props) {
     schema: 'items',
     label: label,
     id: 'items',
-    props: _extends({
+    params: _extends({
       items: visualSelectItems()
-    }, itemProps.visualSelectProps)
+    }, params.visualSelectProps)
   }];
   var initialValues = {
     items: items.map(function (i) {
@@ -1371,15 +1371,15 @@ var ParseObjectAutoCompleteRef = (function (props) {
       error = props.error,
       _props$item = props.item,
       label = _props$item.label,
-      itemProps = _props$item.props;
-  var className = itemProps.className,
-      _itemProps$include = itemProps.include,
-      include = _itemProps$include === void 0 ? [] : _itemProps$include,
-      _itemProps$exclude = itemProps.exclude,
-      exclude = _itemProps$exclude === void 0 ? [] : _itemProps$exclude,
-      _itemProps$multiple = itemProps.multiple,
-      multiple = _itemProps$multiple === void 0 ? true : _itemProps$multiple,
-      locale = itemProps.locale;
+      params = _props$item.params;
+  var className = params.className,
+      _params$include = params.include,
+      include = _params$include === void 0 ? [] : _params$include,
+      _params$exclude = params.exclude,
+      exclude = _params$exclude === void 0 ? [] : _params$exclude,
+      _params$multiple = params.multiple,
+      multiple = _params$multiple === void 0 ? true : _params$multiple,
+      locale = params.locale;
   var data = value;
 
   if (!data) {
@@ -1418,7 +1418,7 @@ var ParseObjectAutoCompleteRef = (function (props) {
     schema: 'items',
     id: 'items',
     label: label,
-    props: {
+    params: {
       multiple: multiple,
       filterSelectedOptions: true,
       fetcher: function (_ref3) {
@@ -1517,13 +1517,13 @@ var ParseObjectUniqueValue = (function (props) {
       _props$item = props.item,
       id = _props$item.id,
       label = _props$item.label,
-      itemProps = _props$item.props;
-  var className = itemProps.className,
-      queryHook = itemProps.queryHook,
-      _itemProps$minLength = itemProps.minLength,
-      minLength = _itemProps$minLength === void 0 ? 3 : _itemProps$minLength,
-      _itemProps$maxLength = itemProps.maxLength,
-      maxLength = _itemProps$maxLength === void 0 ? 20 : _itemProps$maxLength;
+      params = _props$item.params;
+  var className = params.className,
+      queryHook = params.queryHook,
+      _params$minLength = params.minLength,
+      minLength = _params$minLength === void 0 ? 3 : _params$minLength,
+      _params$maxLength = params.maxLength,
+      maxLength = _params$maxLength === void 0 ? 20 : _params$maxLength;
 
   var _useState = useState(propsValue ? propsValue : {
     value: null,

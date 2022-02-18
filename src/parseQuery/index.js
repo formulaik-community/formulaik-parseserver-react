@@ -38,7 +38,7 @@ export default (props) => {
     onValueChanged,
     errors,
 
-    item: { id, label, props: itemProps }
+    item: { id, label, params }
   } = props
 
   const schemas = useRef()
@@ -53,7 +53,7 @@ export default (props) => {
     }
 
     const items = await fetchSchemas()
-    const { classNameInclude = null, classNameExclude = ['_Installation', '_Session'] } = itemProps
+    const { classNameInclude = null, classNameExclude = ['_Installation', '_Session'] } = params
     if (classNameInclude) {
       schemas.current = _.filter(items, item => classNameInclude.includes(item.className))
     } else {
@@ -115,7 +115,7 @@ export default (props) => {
       id: 'className',
       label: 'Classname',
       className: 'w-1/3',
-      props: {
+      params: {
         fetcher: async ({ value }) => {
           const items = schemas.current
           const _i = items.map(i => i.className)
@@ -128,7 +128,7 @@ export default (props) => {
           const name = option
           return `${name}`
         },
-        disabled: itemProps.blockClassName
+        disabled: params.blockClassName
       }
     }
 
@@ -141,21 +141,21 @@ export default (props) => {
       // {
       //     type: 'html',
       //     id: 'html',
-      //     props: {
+      //     params: {
       //         content: <b><i>{'Please be aware these queries will run everytime you fetch a campaing.'}</i></b>
       //     }
       // },
-      ...(itemProps.showCustomKey ? [
+      ...(params.showCustomKey ? [
         {
           type: 'input',
           schema: 'key',
           id: 'key',
           label: 'Custom Key',
           className: 'w-1/3',
-          props: { helperText: 'The prefix to this data query. Defaults to classname' }
+          params: { helperText: 'The prefix to this data query. Defaults to classname' }
         },
       ] : []),
-      ...(itemProps.showDependsOnUser ? [{
+      ...(params.showDependsOnUser ? [{
         isMulti: true,
         className: 'flex',
         items: [
@@ -165,7 +165,7 @@ export default (props) => {
             id: 'dependsOnUser',
             label: 'Depends on user',
             className: 'w-2/3 mr-2',
-            props: {
+            params: {
               subLabel: "Whether the query depends on the user queried from the target audience"
             }
           },
@@ -177,7 +177,7 @@ export default (props) => {
               id: 'userAccessor',
               label: 'User Accessor',
               className: 'w-1/3 ml-2',
-              props: { helperText: 'The path to matching the user in this data query' }
+              params: { helperText: 'The path to matching the user in this data query' }
             },
           ] : []),
         ]
@@ -188,30 +188,30 @@ export default (props) => {
         id: 'accessor',
         label: 'Data accessor ',
         className: 'w-1/3',
-        props: { helperText: '(advanced)' }
+        params: { helperText: '(advanced)' }
       },
       {
         type: 'divider',
         id: 'divider',
-        props: {
+        params: {
           content: <b><i>{'Wheres'}</i></b>
         }
       },
       {
         type: 'wheres',
         id: 'wheres',
-        props: {
+        params: {
           schema: (query && schemas.current) ? _.findWhere(schemas.current, { className }) : null
         }
       },
       {
         type: 'divider',
         id: 'divider',
-        props: {
+        params: {
           content: <b><i>{'Generic constraints'}</i></b>
         }
       },
-      ...(itemProps.showLimit ? [{
+      ...(params.showLimit ? [{
         isMulti: true,
         className: 'flex',
         items: [
@@ -221,7 +221,7 @@ export default (props) => {
             id: 'limit',
             label: 'Limit',
             className: 'w-1/3',
-            props: { helperText: 'This limit will be applied to the job. If unlimited, leave blank.' }
+            params: { helperText: 'This limit will be applied to the job. If unlimited, leave blank.' }
           },
           // {
           //     type: 'input',
@@ -242,7 +242,7 @@ export default (props) => {
             id: 'sortDirection',
             label: 'Sort direction',
             className: 'w-1/3 ',
-            props: {
+            params: {
               options: [
                 { label: null, value: null },
                 { label: "desc", value: 'desc' },
@@ -254,7 +254,7 @@ export default (props) => {
           {
             type: 'divider',
             id: 'divider',
-            props: {
+            params: {
               vertical: true,
               content: <b>{'For'}</b>
             }
@@ -265,7 +265,7 @@ export default (props) => {
             id: 'sortField',
             label: 'sortField',
             className: 'w-2/3',
-            props: {
+            params: {
               options: fieldNameOptions()
             }
           },
@@ -277,14 +277,14 @@ export default (props) => {
         schema: 'include',
         id: 'include',
         label: 'Inclusions',
-        props: { helperText: ' (in the form of ["fieldA", "fieldB.fieldC"])' }
+        params: { helperText: ' (in the form of ["fieldA", "fieldB.fieldC"])' }
       },
       {
         type: 'input',
         schema: 'exclude',
         id: 'exclude',
         label: 'Exclusions (in the form of ["classNameA", "classNameB.classNameC"])',
-        props: { helperText: ' (in the form of ["fieldA", "fieldB.fieldC"])' }
+        params: { helperText: ' (in the form of ["fieldA", "fieldB.fieldC"])' }
       },
       // {
       //     type: 'JSONEditor',
@@ -292,7 +292,7 @@ export default (props) => {
       //     label: 'mock_',
       //     id: 'mock_',
       //     forceLabel: true,
-      //     props: {
+      //     params: {
       //         options: {},
       //         mode: 'json',
       //         height: '40px',
@@ -385,7 +385,7 @@ export default (props) => {
   }
 
   const updateQueryResult = async () => {
-    if (itemProps.hideQueryResult) {
+    if (params.hideQueryResult) {
       return
     }
 
@@ -414,7 +414,7 @@ export default (props) => {
     }
     applyQueryConstraints({ query: _item, values: __values })
     updateQueryResult()
-    if (itemProps.showDependsOnUser) {
+    if (params.showDependsOnUser) {
       const _dependsOnUser = values[id] ? values[id]['dependsOnUser'] : null
 
     }
@@ -423,7 +423,7 @@ export default (props) => {
   }
 
   const onRemove = async () => {
-    if (itemProps.onRemove) { itemProps.onRemove() }
+    if (params.onRemove) { params.onRemove() }
   }
 
   const onClear = async () => {
@@ -481,7 +481,7 @@ export default (props) => {
           break
       }
     })
-    if (itemProps.showLimit && limit) {
+    if (params.showLimit && limit) {
       query.limit(parseInt(limit))
     }
     // if (skip) {
@@ -530,7 +530,7 @@ export default (props) => {
 
             </div>
             : null}
-          {itemProps.onRemove ?
+          {params.onRemove ?
             <Button onClick={onRemove}>Remove data query</Button> : null}
 
         </div>

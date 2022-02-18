@@ -8,12 +8,12 @@ export default (props) => {
     values,
     onValueChanged,
     errors,
-    item: { id, props: itemProps }
+    item: { id, params }
   } = props
 
   const [error, setError] = useState(null)
   const item = values[id]
-  const { fields } = itemProps
+  const { fields } = params
 
   const validationSchema = () => {
     return Yup.object().shape({
@@ -69,7 +69,7 @@ export default (props) => {
           id: 'fieldName',
           label: 'Field name',
           className: 'w-1/3 ml-2 mr-2',
-          props: {
+          params: {
             options: fieldNameOptions()
           }
         },
@@ -79,7 +79,7 @@ export default (props) => {
           id: 'constraint',
           label: 'Constraint',
           className: 'w-1/3 ml-2 mr-2',
-          props: {
+          params: {
             options: [
               { label: "equalTo", value: 'equalTo' },
               // { label: "notEqualTo", value: 'notEqualTo' },
@@ -121,8 +121,8 @@ export default (props) => {
   }
 
   const handleRemove = () => {
-    if (itemProps && itemProps.handleRemove) {
-      itemProps.handleRemove({ id })
+    if (params && params.handleRemove) {
+      params.handleRemove({ id })
     }
 
   }

@@ -11,7 +11,7 @@ export default (props) => {
   const {
     values,
     onValueChanged,
-    item: { id, props: itemProps }
+    item: { id, params }
   } = props
 
   const _value = values[id]
@@ -33,7 +33,7 @@ export default (props) => {
 
 
   const [error, setError] = useState(null)
-  const { schema } = itemProps
+  const { schema } = params
 
   const validationSchema = () => {
     return Yup.object().shape()
@@ -59,7 +59,7 @@ export default (props) => {
     return items.map((item, i) => ({
       type: 'where',
       id: item.id,
-      props: {
+      params: {
         fields,
         handleRemove
       }

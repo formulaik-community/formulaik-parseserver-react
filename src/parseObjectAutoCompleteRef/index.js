@@ -70,11 +70,11 @@ export default (props) => {
     value,
     onValueChanged,
     error,
-    item: { label, props: itemProps }
+    item: { label, params }
   } = props
 
 
-  const { className, include = [], exclude = [], multiple = true, locale } = itemProps
+  const { className, include = [], exclude = [], multiple = true, locale } = params
   var data = value
   if (!data) {
     data = multiple ? [] : null
@@ -113,7 +113,7 @@ export default (props) => {
       schema: 'items',
       id: 'items',
       label: label,
-      props: {
+      params: {
         multiple,
         filterSelectedOptions: true,
         fetcher: async ({ value }) => {

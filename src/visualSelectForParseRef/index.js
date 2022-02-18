@@ -9,7 +9,7 @@ export default (props) => {
   const {
     value,
     onValueChanged,
-    item: { label, props: itemProps }
+    item: { label, params }
   } = props
 
   const [refs, setRefs] = useState(null)
@@ -21,7 +21,7 @@ export default (props) => {
 
   const fetch = async () => {
     try {
-      const { include, exclude, queryHook, className, search } = itemProps.fetchParameters
+      const { include, exclude, queryHook, className, search } = params.fetchParameters
       const _refs = await fetchRefs({ search, className, include, exclude, queryHook })
       setRefs(_refs)
     } catch (e) {
@@ -45,15 +45,15 @@ export default (props) => {
   const validationSchema = () => {
     return Yup.object().shape({
       items: Yup.array()
-        .min(itemProps.visualSelectProps.minSelectionAllowed, itemProps.visualSelectProps.minSelectionAllowedMessage)
-        .max(itemProps.visualSelectProps.maxSelectionAllowed, itemProps.visualSelectProps.maxSelectionAllowedMessage)
+        .min(params.visualSelectProps.minSelectionAllowed, params.visualSelectProps.minSelectionAllowedMessage)
+        .max(params.visualSelectProps.maxSelectionAllowed, params.visualSelectProps.maxSelectionAllowedMessage)
     })
   }
 
   const visualSelectItems = () => {
     return refs.map(ref => ({
       id: ref.id,
-      props: itemProps.mapRefProps(ref)
+      params: params.mapRefProps(ref)
     }))
   }
 
@@ -63,9 +63,9 @@ export default (props) => {
       schema: 'items',
       label,
       id: 'items',
-      props: {
+      params: {
         items: visualSelectItems(),
-        ...itemProps.visualSelectProps
+        ...params.visualSelectProps
       }
     },
   ]

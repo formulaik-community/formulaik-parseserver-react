@@ -34,8 +34,8 @@ const fetchItems = async ({ search, filter, className, data, queryHook }) => {
 
 
 export default (props) => {
-  const { onValueChanged, value: propsValue, field, errors, item: { id, label, props: itemProps } } = props
-  const { className, queryHook, minLength = 3, maxLength = 20 } = itemProps
+  const { onValueChanged, value: propsValue, field, errors, item: { id, label, params } } = props
+  const { className, queryHook, minLength = 3, maxLength = 20 } = params
   const [data, setData] = useState(propsValue ? propsValue : { value: null, isValid: false, initialValue: '' })
   const initialValue = useRef(data.value)
 
