@@ -35,7 +35,7 @@ const fetchSchemas = async () => {
 export default (props) => {
   const {
     values,
-    customOnValueChanged,
+    onValueChanged,
     errors,
 
     item: { id, label, props: itemProps }
@@ -404,7 +404,7 @@ export default (props) => {
     //console.log('__values: ', __values)
 
     if (!className) {
-      customOnValueChanged && customOnValueChanged({ query: null, className: null, accessor: null })
+      onValueChanged && onValueChanged({ query: null, className: null, accessor: null })
       return
     }
 
@@ -419,7 +419,7 @@ export default (props) => {
 
     }
 
-    customOnValueChanged && customOnValueChanged({ query: _item, ...__values })
+    onValueChanged && onValueChanged({ query: _item, ...__values })
   }
 
   const onRemove = async () => {

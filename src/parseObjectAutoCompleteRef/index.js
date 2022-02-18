@@ -68,7 +68,7 @@ const fetchItems = async ({ search, sort, filter, className, include = [], exclu
 export default (props) => {
   const {
     value,
-    customOnValueChanged,
+    onValueChanged,
     error,
     item: { label, props: itemProps }
   } = props
@@ -130,7 +130,7 @@ export default (props) => {
   }
 
   const onValuesChanged = (__values) => {
-    customOnValueChanged && customOnValueChanged(__values.items)
+    onValueChanged && onValueChanged(__values.items)
   }
 
   return <div className={`w-full ${error ? 'bg-red-100 ' : ''}`}>

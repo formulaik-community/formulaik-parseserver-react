@@ -36,7 +36,7 @@ function _extends() {
 
 var WhereSingle = (function (props) {
   var values = props.values,
-      customOnValueChanged = props.customOnValueChanged,
+      onValueChanged = props.onValueChanged,
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
@@ -150,7 +150,7 @@ var WhereSingle = (function (props) {
       }
     }
 
-    customOnValueChanged && customOnValueChanged(result);
+    onValueChanged && onValueChanged(result);
   };
 
   return /*#__PURE__*/React.createElement(Formulaik, {
@@ -165,7 +165,7 @@ var WhereSingle = (function (props) {
 
 var Wheres = (function (props) {
   var values = props.values,
-      customOnValueChanged = props.customOnValueChanged,
+      onValueChanged = props.onValueChanged,
       _props$item = props.item,
       id = _props$item.id,
       itemProps = _props$item.props;
@@ -177,7 +177,7 @@ var Wheres = (function (props) {
     };
     var val = {};
     val[_placeHolder.id] = _placeHolder;
-    customOnValueChanged && customOnValueChanged(val);
+    onValueChanged && onValueChanged(val);
     return /*#__PURE__*/React.createElement("div", {
       className: "w-full border-warmGray-400 border-2 px-5 py-6 rounded-xl"
     }, /*#__PURE__*/React.createElement("div", {
@@ -301,7 +301,7 @@ var Wheres = (function (props) {
       return;
     }
 
-    customOnValueChanged && customOnValueChanged(_values);
+    onValueChanged && onValueChanged(_values);
   };
 
   var componentsLibrary = function componentsLibrary(_ref3) {
@@ -353,7 +353,7 @@ var fetchSchemas = function fetchSchemas() {
 
 var ParseQuery = (function (props) {
   var values = props.values,
-      customOnValueChanged = props.customOnValueChanged,
+      onValueChanged = props.onValueChanged,
       _props$item = props.item,
       id = _props$item.id,
       label = _props$item.label,
@@ -736,7 +736,7 @@ var ParseQuery = (function (props) {
     var className = __values.className;
 
     if (!className) {
-      customOnValueChanged && customOnValueChanged({
+      onValueChanged && onValueChanged({
         query: null,
         className: null,
         accessor: null
@@ -756,7 +756,7 @@ var ParseQuery = (function (props) {
     });
     updateQueryResult();
 
-    customOnValueChanged && customOnValueChanged(_extends({
+    onValueChanged && onValueChanged(_extends({
       query: _item
     }, __values));
   };
@@ -1005,7 +1005,7 @@ var fetchItems = function fetchItems(_ref) {
 
 var ParseObjectAutoComplete = (function (props) {
   var value = props.value,
-      customOnValueChanged = props.customOnValueChanged,
+      onValueChanged = props.onValueChanged,
       error = props.error,
       _props$item = props.item,
       label = _props$item.label,
@@ -1073,7 +1073,7 @@ var ParseObjectAutoComplete = (function (props) {
   };
 
   var onValuesChanged = function onValuesChanged(__values) {
-    customOnValueChanged && customOnValueChanged(__values.items);
+    onValueChanged && onValueChanged(__values.items);
   };
 
   return /*#__PURE__*/React.createElement("div", {
@@ -1169,7 +1169,7 @@ var fetchRefs = (function (_ref) {
 
 var VisualSelectForParseRef = (function (props) {
   var value = props.value,
-      customOnValueChanged = props.customOnValueChanged,
+      onValueChanged = props.onValueChanged,
       _props$item = props.item,
       label = _props$item.label,
       itemProps = _props$item.props;
@@ -1256,7 +1256,7 @@ var VisualSelectForParseRef = (function (props) {
       return __values.items.includes(a.id);
     });
     console.log('values', values);
-    customOnValueChanged && customOnValueChanged(values);
+    onValueChanged && onValueChanged(values);
   };
 
   return /*#__PURE__*/React.createElement(Formulaik, {
@@ -1367,7 +1367,7 @@ var fetchItems$1 = function fetchItems(_ref2) {
 
 var ParseObjectAutoCompleteRef = (function (props) {
   var value = props.value,
-      customOnValueChanged = props.customOnValueChanged,
+      onValueChanged = props.onValueChanged,
       error = props.error,
       _props$item = props.item,
       label = _props$item.label,
@@ -1450,7 +1450,7 @@ var ParseObjectAutoCompleteRef = (function (props) {
   };
 
   var onValuesChanged = function onValuesChanged(__values) {
-    customOnValueChanged && customOnValueChanged(__values.items);
+    onValueChanged && onValueChanged(__values.items);
   };
 
   return /*#__PURE__*/React.createElement("div", {
@@ -1511,7 +1511,7 @@ var fetchItems$2 = function fetchItems(_ref) {
 };
 
 var ParseObjectUniqueValue = (function (props) {
-  var customOnValueChanged = props.customOnValueChanged,
+  var onValueChanged = props.onValueChanged,
       propsValue = props.value,
       errors = props.errors,
       _props$item = props.item,
@@ -1554,7 +1554,7 @@ var ParseObjectUniqueValue = (function (props) {
         });
 
         setData(_data);
-        customOnValueChanged && customOnValueChanged(_data);
+        onValueChanged && onValueChanged(_data);
         return Promise.resolve();
       }
 
@@ -1567,7 +1567,7 @@ var ParseObjectUniqueValue = (function (props) {
         });
 
         setData(_data2);
-        customOnValueChanged && customOnValueChanged(_data2);
+        onValueChanged && onValueChanged(_data2);
         return Promise.resolve();
       }
 
@@ -1585,7 +1585,7 @@ var ParseObjectUniqueValue = (function (props) {
         });
 
         setData(_data);
-        customOnValueChanged && customOnValueChanged(_data);
+        onValueChanged && onValueChanged(_data);
       });
     } catch (e) {
       return Promise.reject(e);

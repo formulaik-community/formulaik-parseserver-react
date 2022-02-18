@@ -10,7 +10,7 @@ import shortid from 'shortid'
 export default (props) => {
   const {
     values,
-    customOnValueChanged,
+    onValueChanged,
     item: { id, props: itemProps }
   } = props
 
@@ -19,7 +19,7 @@ export default (props) => {
     const _placeHolder = { id: shortid.generate() }
     const val = {}
     val[_placeHolder.id] = _placeHolder
-    customOnValueChanged && customOnValueChanged(val)
+    onValueChanged && onValueChanged(val)
     return <div className="w-full border-warmGray-400 border-2 px-5 py-6 rounded-xl">
       <div className="w-full justify-center flex">
         <CircularProgress />
@@ -119,7 +119,7 @@ export default (props) => {
     if (placeholderExists && !force) {
       return
     }
-    customOnValueChanged && customOnValueChanged(_values)
+    onValueChanged && onValueChanged(_values)
   }
 
   const componentsLibrary = ({ type }) => {

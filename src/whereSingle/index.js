@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 export default (props) => {
   const {
     values,
-    customOnValueChanged,
+    onValueChanged,
     errors,
     item: { id, props: itemProps }
   } = props
@@ -117,7 +117,7 @@ export default (props) => {
         result.type = struct.type
       }
     }
-    customOnValueChanged && customOnValueChanged(result)
+    onValueChanged && onValueChanged(result)
   }
 
   const handleRemove = () => {

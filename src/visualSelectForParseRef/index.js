@@ -8,7 +8,7 @@ import fetchRefs from './fetchRefs'
 export default (props) => {
   const {
     value,
-    customOnValueChanged,
+    onValueChanged,
     item: { label, props: itemProps }
   } = props
 
@@ -77,7 +77,7 @@ export default (props) => {
   const onValuesChanged = (__values) => {
     const values = refs.filter(a => __values.items.includes(a.id))
     console.log('values', values)
-    customOnValueChanged && customOnValueChanged(values)
+    onValueChanged && onValueChanged(values)
   }
 
   // const customFormulaikLibrary = (props) => {

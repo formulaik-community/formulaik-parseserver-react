@@ -34,7 +34,7 @@ const fetchItems = async ({ search, filter, className, data, queryHook }) => {
 
 
 export default (props) => {
-  const { customOnValueChanged, value: propsValue, field, errors, item: { id, label, props: itemProps } } = props
+  const { onValueChanged, value: propsValue, field, errors, item: { id, label, props: itemProps } } = props
   const { className, queryHook, minLength = 3, maxLength = 20 } = itemProps
   const [data, setData] = useState(propsValue ? propsValue : { value: null, isValid: false, initialValue: '' })
   const initialValue = useRef(data.value)
@@ -47,7 +47,7 @@ export default (props) => {
       setIsLoading(false)
       const _data = { ...data, value: _value, isValid: true }
       setData(_data)
-      customOnValueChanged && customOnValueChanged(_data)
+      onValueChanged && onValueChanged(_data)
       return
     }
 
@@ -55,7 +55,7 @@ export default (props) => {
       setIsLoading(false)
       const _data = { ...data, value: _value, isValid: false }
       setData(_data)
-      customOnValueChanged && customOnValueChanged(_data)
+      onValueChanged && onValueChanged(_data)
       return
     }
 
@@ -64,7 +64,7 @@ export default (props) => {
     setIsLoading(false)
     const _data = { ...data, value: _value, isValid: count === 0 }
     setData(_data)
-    customOnValueChanged && customOnValueChanged(_data)
+    onValueChanged && onValueChanged(_data)
   }
 
   const adornment = () => {
