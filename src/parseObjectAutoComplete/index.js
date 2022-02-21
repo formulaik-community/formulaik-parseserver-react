@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Formulaik from '@yelounak/formulaik'
+import Formulaik from '@yelounak/formulaik-react'
 //import Formulaik from 'components/shared/formulaik-core'
-import FormulaikMui from '@yelounak/formulaik-mui'
+import FormulaikMui from '@yelounak/formulaik-react-mui'
 //import FormulaikSpecific from 'components/shared/formulaik'
 import * as Yup from 'yup'
 

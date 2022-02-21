@@ -1,12 +1,12 @@
 {
-  "name": "@yelounak/formulaik-parseserver",
-  "version": "1.0.155",
-  "description": "formulaik-parseserver components library.",
+  "name": "@yelounak/formulaik-react-parseserver",
+  "version": "1.0.156",
+  "description": "formulaik-react-parseserver components library.",
   "author": "yelounak",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yelounak/formulaik-parseserver"
+    "url": "https://github.com/yelounak/formulaik-react-parseserver"
   },
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -33,8 +33,8 @@
     "react": ">= 0.16.0 < 18.0.0",
     "underscore": "^1.13.1",
     "yup": "^0.32.11",
-    "@yelounak/formulaik": ">= 1.0.0 < 2.0.0",
-    "@yelounak/formulaik-mui": ">= 1.0.0 < 2.0.0",
+    "@yelounak/formulaik-react": ">= 1.0.0 < 2.0.0",
+    "@yelounak/formulaik-react-mui": ">= 1.0.0 < 2.0.0",
     "@material-ui/core": "5.0.0-alpha.24",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.6",
