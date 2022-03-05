@@ -10,17 +10,7 @@ const capitalize = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-const queryHook = ({ query, search, sort, filter, locale }) => {
-  // if (locale) {
-  //     query.equalTo('locale', locale)
-  // }
-
-  if (search) {
-    query.contains('name', search)
-  }
-}
-
-const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], data, locale, cache }) => {
+const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], data, locale, cache, queryHook }) => {
   const cachedItems = cache && cache.get({ search, key: className })
   if (cachedItems && cachedItems.length) {
     return cachedItems
@@ -50,7 +40,6 @@ const fetchItems = async ({ search, sort, filter, className, include = [], exclu
       break
   }
 
-
   queryHook && queryHook({ query, search, sort, filter, locale })
 
   if (filter !== 'all') {
@@ -74,7 +63,7 @@ export default (props) => {
   } = props
 
 
-  const { className, include = [], exclude = [], multiple = true, locale } = params
+  const { className, include = [], exclude = [], multiple = true, locale, queryHook: paramsQueryHook } = params
   var data = value
   if (!data) {
     data = multiple ? [] : null
@@ -82,6 +71,20 @@ export default (props) => {
 
   if (Array.isArray(data)) {
     data = data.filter(a => a)
+  }
+
+
+  const queryHook = (_props) => {
+    const { query, search } = _props
+    // if (locale) {
+    //     query.equalTo('locale', locale)
+    // }
+
+    if (search) {
+      query.contains('name', search)
+    }
+
+    paramsQueryHook && paramsQueryHook(_props)
   }
 
   const validationSchema = () => {

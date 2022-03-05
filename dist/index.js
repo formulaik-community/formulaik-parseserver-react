@@ -1278,27 +1278,19 @@ var capitalize = function capitalize(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
-var queryHook = function queryHook(_ref) {
-  var query = _ref.query,
-      search = _ref.search;
-
-  if (search) {
-    query.contains('name', search);
-  }
-};
-
-var fetchItems$1 = function fetchItems(_ref2) {
-  var search = _ref2.search,
-      sort = _ref2.sort,
-      filter = _ref2.filter,
-      className = _ref2.className,
-      _ref2$include = _ref2.include,
-      include = _ref2$include === void 0 ? [] : _ref2$include,
-      _ref2$exclude = _ref2.exclude,
-      exclude = _ref2$exclude === void 0 ? [] : _ref2$exclude,
-      data = _ref2.data,
-      locale = _ref2.locale,
-      cache = _ref2.cache;
+var fetchItems$1 = function fetchItems(_ref) {
+  var search = _ref.search,
+      sort = _ref.sort,
+      filter = _ref.filter,
+      className = _ref.className,
+      _ref$include = _ref.include,
+      include = _ref$include === void 0 ? [] : _ref$include,
+      _ref$exclude = _ref.exclude,
+      exclude = _ref$exclude === void 0 ? [] : _ref$exclude,
+      data = _ref.data,
+      locale = _ref.locale,
+      cache = _ref.cache,
+      queryHook = _ref.queryHook;
 
   try {
     var cachedItems = cache && cache.get({
@@ -1382,7 +1374,8 @@ var ParseObjectAutoCompleteRef = (function (props) {
       exclude = _params$exclude === void 0 ? [] : _params$exclude,
       _params$multiple = params.multiple,
       multiple = _params$multiple === void 0 ? true : _params$multiple,
-      locale = params.locale;
+      locale = params.locale,
+      paramsQueryHook = params.queryHook;
   var data = value;
 
   if (!data) {
@@ -1394,6 +1387,17 @@ var ParseObjectAutoCompleteRef = (function (props) {
       return a;
     });
   }
+
+  var queryHook = function queryHook(_props) {
+    var query = _props.query,
+        search = _props.search;
+
+    if (search) {
+      query.contains('name', search);
+    }
+
+    paramsQueryHook && paramsQueryHook(_props);
+  };
 
   var validationSchema = function validationSchema() {
     return Yup.object().shape({
@@ -1424,8 +1428,8 @@ var ParseObjectAutoCompleteRef = (function (props) {
     params: {
       multiple: multiple,
       filterSelectedOptions: true,
-      fetcher: function (_ref3) {
-        var value = _ref3.value;
+      fetcher: function (_ref2) {
+        var value = _ref2.value;
 
         try {
           return fetchItems$1({
