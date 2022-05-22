@@ -5,6 +5,7 @@ import WhereSingle from './whereSingle'
 import VisualSelectForParseRef from './visualSelectForParseRef'
 import ParseObjectAutoCompleteRef from './parseObjectAutoCompleteRef'
 import ParseObjectUniqueValue from './parseObjectUniqueValue'
+import parseUserAutoComplete from './parseUserAutoComplete'
 
 export default (props) => {
   const { type } = props
@@ -23,6 +24,8 @@ export default (props) => {
       return ParseObjectAutoCompleteRef
     case 'parseObjectUniqueValue':
       return ParseObjectUniqueValue
+    case 'parseUserAutoComplete':
+      return parseUserAutoComplete
     default:
       return null
   }

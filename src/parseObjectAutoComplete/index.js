@@ -1,63 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Formulaik from '@yelounak/formulaik-react'
 //import Formulaik from 'components/shared/formulaik-core'
 import FormulaikMui from '@yelounak/formulaik-react-mui'
 //import FormulaikSpecific from 'components/shared/formulaik'
 import * as Yup from 'yup'
 
-const fetchItems = async ({ search, sort, filter, className, include = [], exclude = [], queryHook, data, cache }) => {
-  const cachedItems = cache && cache.get({ search, key: className })
-  if (cachedItems) {
-    return cachedItems
-  }
-  console.log('fetchItems: ', className)
-  if (!className) {
-    return []
-  }
-
-  if (search && search.length < 2) {
-    return []
-  }
-
-  const _className = (typeof className === 'function') ? className({ data }) : className
-  console.log('fetchItems: _className', _className)
-  if (!_className) {
-    return []
-  }
-  const query = new Parse.Query(_className)
-  switch (sort) {
-    case 'desc':
-      query.descending('createdAt')
-      break
-    default:
-      query.ascending('createdAt')
-      break
-  }
-
-
-  queryHook && queryHook({ query, search, sort, filter })
-
-  if (filter !== 'all') {
-    //_query.startsWith('mimeType', filter)
-  }
-  //_query.fullText('name', controls.search.query ? controls.search.query : '')
-  query.include(include)
-  query.exclude(exclude)
-  var results = await query.find()
-  results = results ? results : []
-  cache && cache.add({ search, key: className, results })
-  return results
-}
+import fetchItems from './fetcher'
 
 export default (props) => {
   const {
     value,
     onValueChanged,
     error,
-    item: { label, params }
+    item: { label, params = {} }
   } = props
 
-  const { className, include = [], exclude = [], queryHook, getOptionLabel, multiple = true } = params
+  const { include = [],
+    exclude = [],
+    multiple = true,
+    locale,
+    queryHook,
+    optionLabel,
+    queryInitiator,
+    className, } = params
+
   var data = value
   if (!data) {
     data = multiple ? [] : null
@@ -81,12 +47,13 @@ export default (props) => {
       label: label,
       params: {
         multiple,
+        className,
         filterSelectedOptions: true,
         fetcher: async ({ value }) => {
-          return fetchItems({ search: value, className, include, exclude, queryHook, data, cache: props.cache })
+          return fetchItems({ search: value, className, include, exclude, queryHook, queryInitiator, data, locale, cache: props.cache })
         },
-        isOptionEqualToValue: (option, value) => { return (option.id === value.id) },
-        getOptionLabel,
+        isOptionEqualToValue: (option, value) => (option.id === value.id),
+        getOptionLabel: optionLabel,
       }
     },
   ]
@@ -99,14 +66,16 @@ export default (props) => {
     onValueChanged && onValueChanged(__values.items)
   }
 
-  return <div className={`w-full ${error ? 'bg-red-100 ' : ''}`}><Formulaik
-    componentsLibraries={[FormulaikMui]}
-    initialValues={initialValues}
-    validationSchema={validationSchema}
-    inputs={inputs}
-    onValuesChanged={onValuesChanged}
-    hideErrors
-    disabled={props.disabled}
-    readOnly={props.readOnly} />
+  return <div className={`w-full ${error ? 'bg-red-100 ' : ''}`}>
+    <Formulaik
+      componentsLibraries={[FormulaikMui]}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      inputs={inputs}
+      onValuesChanged={onValuesChanged}
+      hideErrors
+      disabled={props.disabled}
+      readOnly={props.readOnly}
+    />
   </div>
 }

@@ -926,8 +926,9 @@ var ParseQuery = (function (props) {
   })) : null)));
 });
 
-var fetchItems = function fetchItems(_ref) {
-  var search = _ref.search,
+var fetchItems = (function (_ref) {
+  var queryInitiator = _ref.queryInitiator,
+      search = _ref.search,
       sort = _ref.sort,
       filter = _ref.filter,
       className = _ref.className,
@@ -935,9 +936,10 @@ var fetchItems = function fetchItems(_ref) {
       include = _ref$include === void 0 ? [] : _ref$include,
       _ref$exclude = _ref.exclude,
       exclude = _ref$exclude === void 0 ? [] : _ref$exclude,
-      queryHook = _ref.queryHook,
       data = _ref.data,
-      cache = _ref.cache;
+      locale = _ref.locale,
+      cache = _ref.cache,
+      queryHook = _ref.queryHook;
 
   try {
     var cachedItems = cache && cache.get({
@@ -945,7 +947,7 @@ var fetchItems = function fetchItems(_ref) {
       key: className
     });
 
-    if (cachedItems) {
+    if (cachedItems && cachedItems.length) {
       return Promise.resolve(cachedItems);
     }
 
@@ -969,7 +971,12 @@ var fetchItems = function fetchItems(_ref) {
       return Promise.resolve([]);
     }
 
-    var query = new Parse.Query(_className);
+    var query = queryInitiator ? queryInitiator({
+      search: search,
+      sort: sort,
+      filter: filter,
+      locale: locale
+    }) : new Parse.Query(_className);
 
     switch (sort) {
       case 'desc':
@@ -985,7 +992,8 @@ var fetchItems = function fetchItems(_ref) {
       query: query,
       search: search,
       sort: sort,
-      filter: filter
+      filter: filter,
+      locale: locale
     });
 
     if (filter !== 'all') {}
@@ -1004,7 +1012,7 @@ var fetchItems = function fetchItems(_ref) {
   } catch (e) {
     return Promise.reject(e);
   }
-};
+});
 
 var ParseObjectAutoComplete = (function (props) {
   var value = props.value,
@@ -1012,16 +1020,19 @@ var ParseObjectAutoComplete = (function (props) {
       error = props.error,
       _props$item = props.item,
       label = _props$item.label,
-      params = _props$item.params;
-  var className = params.className,
-      _params$include = params.include,
+      _props$item$params = _props$item.params,
+      params = _props$item$params === void 0 ? {} : _props$item$params;
+  var _params$include = params.include,
       include = _params$include === void 0 ? [] : _params$include,
       _params$exclude = params.exclude,
       exclude = _params$exclude === void 0 ? [] : _params$exclude,
-      queryHook = params.queryHook,
-      getOptionLabel = params.getOptionLabel,
       _params$multiple = params.multiple,
-      multiple = _params$multiple === void 0 ? true : _params$multiple;
+      multiple = _params$multiple === void 0 ? true : _params$multiple,
+      locale = params.locale,
+      queryHook = params.queryHook,
+      optionLabel = params.optionLabel,
+      queryInitiator = params.queryInitiator,
+      className = params.className;
   var data = value;
 
   if (!data) {
@@ -1047,20 +1058,23 @@ var ParseObjectAutoComplete = (function (props) {
     label: label,
     params: {
       multiple: multiple,
+      className: className,
       filterSelectedOptions: true,
-      fetcher: function (_ref2) {
-        var value = _ref2.value;
+      fetcher: function (_ref) {
+        var value = _ref.value;
 
         try {
-          return fetchItems({
+          return Promise.resolve(fetchItems({
             search: value,
             className: className,
             include: include,
             exclude: exclude,
             queryHook: queryHook,
+            queryInitiator: queryInitiator,
             data: data,
+            locale: locale,
             cache: props.cache
-          });
+          }));
         } catch (e) {
           return Promise.reject(e);
         }
@@ -1068,7 +1082,7 @@ var ParseObjectAutoComplete = (function (props) {
       isOptionEqualToValue: function isOptionEqualToValue(option, value) {
         return option.id === value.id;
       },
-      getOptionLabel: getOptionLabel
+      getOptionLabel: optionLabel
     }
   }];
   var initialValues = {
@@ -1630,6 +1644,72 @@ var ParseObjectUniqueValue = (function (props) {
   });
 });
 
+var parseUserAutoComplete = (function (props) {
+  var className = '_User';
+  var params = props.item.params ? props.item.params : {};
+
+  var queryHook = function queryHook(_props) {
+
+    params.queryHook && params.queryHook(_props);
+  };
+
+  var queryInitiator = function queryInitiator(_props) {
+    if (params.query) {
+      return params.query(_props);
+    }
+
+    var search = _props.search;
+
+    var _query;
+
+    if (search) {
+      var firstNameQuery = new Parse.Query(className);
+      firstNameQuery.matches('firstname', search, 'i');
+      var lastNameQuery = new Parse.Query(className);
+      lastNameQuery.matches('lastname', search, 'i');
+      var handleQuery = new Parse.Query(className);
+      handleQuery.matches('handle', search, 'i');
+      var emailQuery = new Parse.Query(className);
+      emailQuery.matches('email', search, 'i');
+      _query = new Parse.Query.or(firstNameQuery, lastNameQuery, handleQuery, emailQuery);
+    }
+
+    if (!_query) {
+      _query = new Parse.Query(className);
+    }
+
+    return _query;
+  };
+
+  var optionLabel = function optionLabel(option) {
+    if (params.optionLabel) {
+      return params.optionLabel(option);
+    }
+
+    var user = option;
+
+    if (!user) {
+      return null;
+    }
+
+    var name = user.get('firstname') + " " + user.get('lastname') + " " + (user.get('handle') ? "(" + user.get('handle') + ")" : '');
+    return name;
+  };
+
+  var _props = _extends({}, props, {
+    item: _extends({}, props.item, {
+      params: _extends({}, props.item.params, {
+        optionLabel: optionLabel,
+        queryInitiator: queryInitiator,
+        queryHook: queryHook,
+        className: className
+      })
+    })
+  });
+
+  return /*#__PURE__*/React__default.createElement(ParseObjectAutoComplete, _props);
+});
+
 var index = (function (props) {
   var type = props.type;
 
@@ -1654,6 +1734,9 @@ var index = (function (props) {
 
     case 'parseObjectUniqueValue':
       return ParseObjectUniqueValue;
+
+    case 'parseUserAutoComplete':
+      return parseUserAutoComplete;
 
     default:
       return null;
