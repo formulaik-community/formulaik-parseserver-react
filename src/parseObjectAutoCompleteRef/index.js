@@ -115,7 +115,7 @@ export default (props) => {
       type: 'autocomplete',
       schema: 'items',
       id: 'items',
-      label: label,
+      //label: label,
       params: {
         multiple,
         filterSelectedOptions: true,

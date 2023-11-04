@@ -79,7 +79,7 @@ export default (props) => {
   }
 
   return <OutlinedInput
-    label={label}
+    //label={label}
     variant="outlined"
     disabled={props.disabled}
     readOnly={props.readOnly}
