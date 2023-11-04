@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
-import Formulaik from '@yelounak/formulaik-react'
-import FormulaikMui from '@yelounak/formulaik-react-mui'
+import Formulaik from '@formulaik-community/formulaik-engine-react'
+import FormulaikMui from '@formulaik-community/formulaik-mui-react'
 import * as Yup from 'yup'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Formulaik from '@yelounak/formulaik-react'
-import FormulaikMui from '@yelounak/formulaik-react-mui'
+import Formulaik from '@formulaik-community/formulaik-engine-react'
+import FormulaikMui from '@formulaik-community/formulaik-mui-react'
 import * as Yup from 'yup'
 
 export default (props) => {
